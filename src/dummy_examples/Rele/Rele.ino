@@ -47,7 +47,10 @@ void printMeasure(String prefix, float value, String postfix)
 float getCurrentAC(uint16_t frequency= 50) {
   uint32_t period = 1000000 / frequency;
   uint32_t t_start = micros();
+  // Voltaje de referencia para Arduino(5V):
   const float VREF= 5.0;
+  // Resolución, discretización en la conversión de una señal analógica a un valor numérico 1024 (0-1023) para arduino.
+  const float AtoDC = 1023.0;
   const float sensitivity = 0.100;
 //  const float zero= 512.0;
 
@@ -60,7 +63,7 @@ float getCurrentAC(uint16_t frequency= 50) {
     measurements_count++;
   }
 
-  float Irms = sqrt(Isum / measurements_count) / 1023.0 * VREF / sensitivity;
+  float Irms = sqrt(Isum / measurements_count) / AtoDC * VREF / sensitivity;
   return Irms;
 }
 
@@ -69,9 +72,9 @@ float getCurrentAC(uint16_t frequency= 50) {
 void loop() {
   
    float current = getCurrentAC();
-//   float currentRMS = 0.707 * current;
+   float currentRMS = 0.707 * current;
 //   float power = 230.0 * currentRMS;
-   float currentRMS = 1.1 * current;
+//   float currentRMS = 1.1 * current;
    float power = 230.0 * currentRMS;
  
    printMeasure("Intensidad: ", current, "A ,");
