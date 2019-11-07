@@ -52,7 +52,7 @@ float getCurrentAC(uint16_t frequency= 50) {
   uint32_t t_start = micros();
   // Voltaje de referencia para Arduino(5V):
   const float VREF= 3.33;
-  // Resolución, discretización en la conversión de una señal analógica a un valor numérico 1024 (0-1023) para arduino.
+  // Resolución, discretización en la conversión de una señal analógica a un valor numérico 4096 (0-4095) para ESP32.
   const float AtoDC = 4095.0;
   const float sensitivity = 0.100;
 //  const float zero= 512.0;
