@@ -13,7 +13,7 @@ linkcolor: red
 
 # Descripción
 
-Probamos nuestro sensor intrusivo en una bombilla de 11W. 
+Probamos nuestro sensor intrusivo (acs712) en una bombilla de 11W. 
 
 # Lecturas
 
@@ -77,3 +77,48 @@ fluctuaciones.
 
 Lo que es peor, tras apagar la bombilla seguía obteniendo lecturas de
 20W o más.
+
+
+# Pasando a ESP32
+
+## Dudas
+
+**Puerto de conexión S - Relé:**
+
+Antes en Arduino utilizábamos el pin 9 para salida digital.
+
+```
+// S --> pin 19 (p.ej. vale cualquier pin de entrada/salida)
+```
+
+¿Ahora vale cualquier pin de entrada salida? ¿O tiene que ser algún
+puerto serial?
+
+**Voltaje de este puerto:** 
+
+Las salidas digitales de arduino operan a 5V, pero las de ESP32
+(probado empíricamente en un programa con un LED) muestra una
+diferencia de potencial de ~3.35V (335 medido con una escala de 0-20
+en corriente continua). 
+
+¿La señal que controla el relé simplemente trabajará con un voltaje
+alto-bajo? ¿O afectará que no sean 5V como con arduino? (aunque tras
+una medición del voltaje en arduino la diferencia de potencial entre
+la tierra y el pin de salida era ~3.84)
+
+## Detalles
+
+* El puerto a utilizar para “escribir al relé”.
+
+* El voltaje de dicho puerto.
+
+* El voltaje que emite el sensor de corriente hacia la lectura
+  analógica. Divisor de tensión.
+
+
+# Fuentes para el diagrama
+
+* Relé: https://github.com/rwaldron/fritzing-components
+  (agradecimientos al subreddit r/Arduino)
+
+* ESP32 Devkit: En este hilo https://forum.fritzing.org/t/doit-esp32-devkit-v1/6158/8 este enlace: https://forum.fritzing.org/uploads/default/original/2X/5/52c6aaad54a039b8412a393cc22f929288fa2ac3.fzpz
