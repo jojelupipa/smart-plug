@@ -7,14 +7,58 @@ conveniente dar una definición sobre esta que permita esclarecer el
 concepto.
 
 El Internet de las Cosas es un paradigma tecnológico en sí
-mismo. Desglosándo el término vemos que reúne dos tecnologías. Por un
-lado parte de "las cosas", es decir, los dispositivos y
+mismo. Desglosándo el concepto vemos que reúne dos tecnologías. Por un
+lado parte de "las cosas", que abarca desde los dispositivos y
 electrodomésticos que podemos encontrar en nuestro día a día; que
 tienen una funcionalidad en sí misma (p.ej. una televisión, un
-frigorífico). A estas "cosas" se les añade el término "Internet", que
-no es más que una abstracción de la conectividad que permite dotar a
-las cosas de comunicación con el exterior, extendiendo sus
-funcionalidades sin privarlas de su funcionamiento original.
+frigorífico) hasta incluso podemos abstraer a personas o animales (una
+persona con un marcapasos o un ave con un geolocalizador, [ejemplos
+que podemos encontrar aquí](https://internetofthingsagenda.techtarget.com/definition/Internet-of-Things-IoT)). A
+estas "cosas" se les añade el término "Internet", que no es más que
+una abstracción de la conectividad que permite dotar a las cosas de
+comunicación con el exterior, extendiendo sus funcionalidades sin
+privarlas de su funcionamiento original. Esta es su principal
+característica, la posibilidad de comunicación con otras "cosas"
+mediante internet y sin la necesidad de intervención humana.
+
+La idea que trasciende de esto es que cualquier cosa o dispositivo que
+usemos habitualmente puede conectarse a una red, a internet. Haciendo
+que, en términos de redes, un dispositivo IoT se pueda equiparar a un
+ordenador convencional.
+
+## ¿Qué es un dispositivo IoT?
+
+En el símil anterior hemos adelantado el concepto de dispositivo IoT
+sin llegar a definirlo. A continuación explicaremos qué es
+concretamente un dispositivo IoT y qué lo diferencia de otras "cosas".
+
+Un dispositivo IoT es una entidad (objeto, o incluso animales o
+personas) que tiene una funcionalidad en sí misma y a la cual dotamos
+de una capacidad de conexión y telecomunicación. De modo que sea capaz
+de, por sí misma, comunicarse con otros dispositivos en su entorno con
+esta misma capacidad.
+
+Los beneficios que podemos obtener de este paradigma se pueden aplicar
+en muchas áreas, por
+ejemplo[p 5-17](http://ird.sut.ac.th/e-journal/Journal/suwimonv/1403739/1403739.pdf):
+
+- Logística: Rastreo de envíos por correo o estado del stock en
+  almacenes, automatizando lectura de los ítems mediante wifi.
+  
+- Transporte: Gestión automática de rutas por GPS; captura y procesado
+  de infracciones de velocidad.
+  
+- Salud: Desde una pulsera que capte tus hábitos de vida hasta
+  monitorización de personas ancianas que viven solas.
+  
+- Monitorización: Desde instalación de sensores en un bosque para
+  medir datos de contaminación hasta medir en un hogar el consumo de
+  un electrodoméstico.
+  
+Este último ejemplo es justo la motivación de nuestro trabajo. Podemos
+usar esta tecnología para crear un enchufe inteligente que nos permita
+saber nuestro consumo eléctrico y controlar el uso que le damos.
+
 
 # Revisión de enchufes inteligentes existentes en el mercado
 
