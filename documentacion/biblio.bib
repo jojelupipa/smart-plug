@@ -1,245 +1,8 @@
-# Internet de las Cosas
 
-<!-- Qué es IoT -->
-Uno de los términos más recurrentes en el ámbito de la tecnología a
-día de hoy es el de "Internet de las Cosas" (en inglés, IoT, Internet
-of Things). Pero, puesto que el término puede resultar ambiguo, es
-conveniente dar una definición sobre esta que permita esclarecer el
-concepto.
-
-El Internet de las Cosas es un paradigma tecnológico en sí
-mismo. Desglosándo el concepto vemos que reúne dos tecnologías. Por un
-lado parte de "las cosas", que abarca desde los dispositivos y
-electrodomésticos que podemos encontrar en nuestro día a día; que
-tienen una funcionalidad en sí misma (p.ej. una televisión, un
-frigorífico) hasta incluso podemos abstraer a personas o animales (una
-persona con un marcapasos o un ave con un geolocalizador, [ejemplos
-que podemos encontrar aquí](https://internetofthingsagenda.techtarget.com/definition/Internet-of-Things-IoT)). A
-estas "cosas" se les añade el término "Internet", que no es más que
-una abstracción de la conectividad que permite dotar a las cosas de
-comunicación con el exterior, extendiendo sus funcionalidades sin
-privarlas de su funcionamiento original. Esta es su principal
-característica, la posibilidad de comunicación con otras "cosas"
-mediante internet y sin la necesidad de intervención humana.
-
-La idea que trasciende de esto es que cualquier cosa o dispositivo que
-usemos habitualmente puede conectarse a una red, a internet. Haciendo
-que, en términos de redes, un dispositivo IoT se pueda equiparar a un
-ordenador convencional.
-
-## ¿Qué es un dispositivo IoT?
-
-<!-- Dispositivos IoT -->
-En el símil anterior hemos adelantado el concepto de dispositivo IoT
-sin llegar a definirlo completamente. A continuación explicaremos qué
-es concretamente un dispositivo IoT y qué lo diferencia de otras
-"cosas". 
-
-Un dispositivo IoT es una entidad (objeto, o incluso animales o
-personas) que tiene una funcionalidad en sí misma y a la cual dotamos
-de una capacidad de conexión y telecomunicación. De modo que sea capaz
-de, por sí misma, comunicarse con otros dispositivos en su entorno con
-esta misma capacidad.
-
-<!-- Ejemplos y aplicaciones -->
-Los beneficios que podemos obtener de este paradigma se pueden aplicar
-en muchas áreas, por
-ejemplo[p 5-17](http://ird.sut.ac.th/e-journal/Journal/suwimonv/1403739/1403739.pdf):
-
-- Logística: Rastreo de envíos por correo o estado del stock en
-  almacenes, automatizando lectura de los ítems mediante wifi.
-  
-- Transporte: Gestión automática de rutas por GPS; captura y procesado
-  de infracciones de velocidad.
-  
-- Salud: Desde una pulsera que capte tus hábitos de vida hasta
-  monitorización de personas ancianas que viven solas.
-  
-- Monitorización: Desde instalación de sensores en un bosque para
-  medir datos de contaminación hasta medir en un hogar el consumo de
-  un electrodoméstico.
-  
-Este último ejemplo es justo la motivación de nuestro trabajo. Podemos
-usar esta tecnología para crear un enchufe inteligente que nos permita
-saber nuestro consumo eléctrico y controlar el uso que le damos.
-
-
-# Revisión de enchufes inteligentes existentes en el mercado
-
-## ¿Qué es un enchufe? Tipos de enchufe
-
-<!-- ¿Qué es un enchufe? -->
-Un enchufe es una fuente de alimentación entre sistemas eléctricos. En
-este proyecto trataremos los enchufes dentro del ámbito doméstico o
-comercial frente al ámbito industrial, que tiende a trabajar con
-voltajes de un orden muy superior.
-
-Un enchufe en el ámbito doméstico permite la conexión entre un
-dispositivo electrónico y la corriente alterna para la alimentación de
-este dispositivo.
-
-Estos trabajan con unos voltajes entre 100V y 240V
-(https://www.iec.ch/worldplugs/list_byelectricpotential.htm). El tipo
-de enchufe, voltaje y frecuencia usados en una región geográfica
-vienen determinados por un convenio fijado por el gobierno de esa
-zona.
-
-Por razones históricas
-(https://www.nuevatribuna.es/articulo/ciencia/origen-frecuencias-electricas-50-y-60-hz/20150811110350118983.html)
-no existe una estandarización. 
-
-Trabajaremos con el tipo de enchufe usado en España, que cuenta con un
-potencial de 230V y una frecuencia de 50Hz. (https://www.iec.ch/worldplugs/list_bylocation.htm).
-
-## ¿Qué es un enchufe inteligente?
-
-<!-- ¿Qué es un enchufe inteligente? -->
-Un enchufe inteligente extiende esta definición de enchufe. Actuando
-como una interfaz que permite añadir un amplio abanico de
-funcionalidades relativas al manejo y supervisión de estos
-dispositivos externos. Dotándole de las ventajas de la conectividad.
-
-Esto encaja con la definición de dispositivo IoT que mencionábamos
-previamente. Un objeto cotidiano que ha sido dotado de la capacidad de
-comunicación con otros dispositivos.
-
-## Funcionalidades comunes que ofertan los enchufes electrónicos actualmente
-
-### Monitorización: 
-
-Supervisar el uso de energía: Esto permite establecer un control sobre
-su uso, realizar estimaciones sobre el coste o incluso notificar
-frente a anomalías como el consumo en horarios no esperados o picos de
-voltaje.
-
-### Control:
-
-Manejar tus dispositivos de manera remota, programar el horario de
-funcionamiento de estos o la manera en la que funcionan son solo
-algunas de las posibilidades. Destacando la posibilidad de integración
-con otros dispositivos que proporcionen una mayor accesibilidad
-(p.ej. la interfaz de voz de un asistente de móvil).
-
-## Tipos de enchufes
-
-Atendiendo a sus características más distintivas podemos hacer una
-clasificación (no excluyente) de:
-
-- Enchufes inteligentes (E.I.) por control remoto (wifi, bluetooth,
-  infrarojos u otros tipos de señales electromagnéticas)
-
-- E.I. programables
-
-- E.I. de regletas
-
-## Modelos en el mercado
-
-<!-- Modelos en el mercado -->
-La comercialización de este producto está muy
-extendida, proporcionando una amplia oferta de productos los cuales
-podemos recogerlos bajo la clasificación previa:
-
-- Programación temporal: Permiten la ejecución de tareas a horas
-  concretas del día. Por
-  ejemplo:
-  [Garza 400603, analógico](https://web.archive.org/web/20191111121153/https://www.amazon.es/Garza-Power-Temporizador-anal%C3%B3gico-programaci%C3%B3n/dp/B00URUVDW2/),
-  [Orbegozo PG 20, digital](https://web.archive.org/web/20191112121450/https://www.amazon.es/dp/B00ZJ1LQDK)
-  
-- Control remoto: Se pueden controlar con mando a distancia, a través
-  de una app o con control por voz. Por
-  ejemplo:
-  [TP-Link HS100](https://web.archive.org/web/20191112130933/https://www.amazon.es/dp/B06W586CDZ) o
-  la
-  [Regleta Xiaomi](https://web.archive.org/web/20191116174434/https://www.amazon.es/dp/B07DJ2G1CW),
-  que es un ejemplo de intersección entre E.I. de regleta y por
-  control remoto.
-
-# Arquitecturas IoT
-
-El paradigma de IoT viene a integrarse entre los mecanismos
-convencionales y el resto de redes. En sus primeros pasos se adaptaron
-sus diseños a las necesidades de estos sistemas. Pero según fue
-desarrollándose fueron naciendo algunas arquitecturas que ayudaban a
-definir y a trabajar mejor con los requisitos de estos nuevos
-sistemas.
-
-Existen diferentes arquitecturas en la actualidad, que difieren en el
-enfoque que le dan a ciertos campos. Dos de los más conocidos son
-IoT-A e IIRA. Siendo el primero el más extendido desde su lanzamiento
-en
-2012
-[](https://web.archive.org/web/20191116195145/https://www.researchgate.net/publication/288855901_Reference_Architectures_for_the_Internet_of_Things).
-
-Estos campos de comparación son:[](https://web.archive.org/web/20191116203648/https://www.sciencedirect.com/science/article/abs/pii/S1389128610001568?via=ihub) 
-
-- El enfoque particular a casos de negocio frente a conceptos
-  generales.
-  
-- Orientación a Internet: Se introducen nuevos protocolos y se adaptan
-  los ya existentes a sus necesidades.
-  
-- Tipo de dispositivo sobre el cual se orienta (como sensores o
-  actuadores).
-
-
-## Modelos de interconexión de red
-
-## Protocolos
-
-Dos ordenadores convencionales necesitan una pila de protocolos para
-que puedan transmitir información a las distintas capas que conforman
-la comunicación. Ante los requisitos que surgían con los dispositivos
-IoT, surgían también protocolos que daban respuesta a
-estos. Estableciéndose así una pila de protocolos de red especializada
-para IoT.
-
-
-
-# Diseño de la arquitectura de nuestro sistema
-
-## Descripción general
-
-## Modelo de red usado
-
-## Protocolo MQTT
-
-## Diseño broker, publishers, suscribers
-
-
-
-Organización:
-
-Primero internet de las cosas introducción ✓
-	Qué es el IoT ✓
-	Dispositivos IoT: Qué es un dispositivo IoT. Características para
-	que lo sea. ✓
-	Ejemplos y aplicaciones ✓
-
-Enlazamos con enchufe inteligente ✓
-	Qué es un enchufe ✓
-	Qué es un enchufe inteligente (enlazando con características de
-	dispositivos IoT descritas antes) ✓
-	Enchufes inteligentes en el mercado. Características,
-	funcionalidades y comparativa. ✓
-
-Arquitecturas IoT ✓
-	Modelos de interconexión de red
-	Protocolos
-
-Diseño de la arquitectura del sistema
-	Descripción general: (Enunciado del problema: Varios enchufes inteligentes en el hogar conectados para monitorización y control)
-	Modelo de red usado
-	Protocolo: MQTT
-	Diseño broker, publishers, subscribers
-	
-
-
-# Citas
-
-
-@misc{IECWorldPlugs,
+@misc{iecIECWorldPlugs,
   title = {{{IEC}} - {{World Plugs}}: {{List}} View by Potential},
   howpublished = {https://web.archive.org/web/20180822153312/http://www.iec.ch/worldplugs/list\_byelectricpotential.htm},
+  author = {IEC},
   keywords = {potencial,voltaje},
   file = {/home/cuack/Zotero/storage/H2VD4RCP/list_byelectricpotential.html}
 }
@@ -254,119 +17,131 @@ Diseño de la arquitectura del sistema
   file = {/home/cuack/Zotero/storage/S8F4RGG4/20150811110350118983.html}
 }
 
-@misc{SettingBluetoothHC05,
+@misc{exploreembeddedwebsiteSettingBluetoothHC05,
   title = {Setting up {{Bluetooth HC}}-05 with {{Arduino}}},
   abstract = {Even though  Bluetooth Low Energy Modules available at a reasonable cost, most of these modules are not compatible with existing devices that support the classic Bluetooth. The HC-05 is an expensive module that is compatible with wide range of devices including smartphone, laptops and tablets. Adding...},
   language = {en},
   journal = {Tutorials},
   howpublished = {https://web.archive.org/web/20181017170923/http://exploreembedded.com/wiki/Setting\_up\_Bluetooth\_HC-05\_with\_Arduino},
+  author = {{exploreembedded (website)}},
   keywords = {bluetooth,tutorial},
   file = {/home/cuack/Zotero/storage/UWRMUFQD/Setting_up_Bluetooth_HC-05_with_Arduino.html}
 }
 
-@misc{ElectricityAlternatingcurrentCircuits,
+@misc{bertschmcgraynesharonElectricityAlternatingcurrentCircuits,
   title = {Electricity - {{Alternating}}-Current Circuits},
   abstract = {Electricity - Electricity - Alternating-current circuits: Certain circuits include sources of alternating electromotive forces of the sinusoidal form V = V0 cos({$\omega$}t) or V = V0 sin({$\omega$}t). The sine and cosine functions have values that vary between +1 and -1; either of the equations for the voltage represents a potential that varies with respect to time and has values from +V0 to -V0. The voltage varies with time at a rate given by the numerical value of {$\omega$}; {$\omega$}, which is called the angular frequency, is expressed in radians per second. Figure 22 shows an example with V0 = 170 volts and {$\omega$} = 377 radians},
   language = {en},
   journal = {Encyclopedia Britannica},
   howpublished = {https://web.archive.org/web/20190925195254/https://www.britannica.com/science/electricity/Alternating-current-circuits},
+  author = {Bertsch McGrayne, Sharon and E. Suckling, Eustace and Kashy, Edwing and Neville H. Robinson, Frank},
   keywords = {intensidad,rms,TFG},
   file = {/home/cuack/Zotero/storage/SLF9A8B2/Alternating-current-circuits.html;/home/cuack/Zotero/storage/V9ZUKUCG/Alternating-current-circuits.html}
 }
 
-@article{ValorEficazPara2019,
+@article{wikipediawebsiteValorEficazPara2019,
   title = {{Valor eficaz (para comprender Irms)}},
   copyright = {Creative Commons Attribution-ShareAlike License},
   abstract = {Se denomina valor eficaz al valor cuadr{\'a}tico medio de una magnitud el{\'e}ctrica. El concepto de valor eficaz se utiliza especialmente para estudiar las formas de onda peri{\'o}dicas, a pesar de ser aplicable a todas las formas de onda, constantes o no. En ocasiones se denomina con el extranjerismo RMS (del ingl{\'e}s, root mean square).},
   language = {es},
   journal = {Wikipedia, la enciclopedia libre},
+  author = {{wikipedia (website)}},
   month = oct,
   year = {2019},
-  keywords = {intensidad,corriente,sensores,tfg},
+  keywords = {corriente,intensidad,sensores,tfg},
   file = {/home/cuack/Zotero/storage/YPDRNDBC/index.html},
   note = {Page Version ID: 120619701}
 }
 
-@misc{SensorCorrienteACS712,
+@misc{diarioelectronicohoywebsiteSensorCorrienteACS712,
   title = {Sensor de {{Corriente ACS712}}. \textendash{} {{Electr{\'o}nica Pr{\'a}ctica Aplicada}}},
   howpublished = {https://web.archive.org/web/20190715041409/https://www.diarioelectronicohoy.com/blog/sensor-de-corriente-acs712},
-  keywords = {sensores,tfg,acs712,intrusivo},
+  author = {{diarioelectronicohoy (website)}},
+  keywords = {acs712,intrusivo,sensores,tfg},
   file = {/home/cuack/Zotero/storage/RGSQYVSW/sensor-de-corriente-acs712.html}
 }
 
-@misc{SCT013MideConsumo2017,
+@misc{delvalleSCT013MideConsumo2017,
   title = {{SCT-013 mide el consumo el{\'e}ctrico en tu casa con Arduino}},
   abstract = {El SCT-013 es un sensor no invasivo para medir el consumo el{\'e}ctrico con Arduino. El SCT-013 te ayudar{\'a} a saber cuanto gastas con Arduino.},
   language = {es},
   journal = {Programar f{\'a}cil con Arduino},
   howpublished = {https://web.archive.org/web/20191111200838/https://programarfacil.com/blog/arduino-blog/sct-013-consumo-electrico-arduino/},
+  author = {{del Valle}, Luis},
   month = sep,
   year = {2017},
-  keywords = {sensores,tfg,sct013,valor eficaz},
+  keywords = {sct013,sensores,tfg,valor eficaz},
   file = {/home/cuack/Zotero/storage/9SH5TLWL/sct-013-consumo-electrico-arduino.html}
 }
 
-@misc{WhatInternetThings,
+@misc{iotagendawebsiteWhatInternetThings,
   title = {What Is Internet of Things ({{IoT}})? - {{Definition}} from {{WhatIs}}.Com},
   shorttitle = {What Is Internet of Things ({{IoT}})?},
   abstract = {Learn everything you need to know about the internet of things (IoT) as a system of interrelated computing devices, machines or objects which transfer data over a network without requiring human-to-human or human-to-computer interaction.},
   language = {en},
   journal = {IoT Agenda},
   howpublished = {https://web.archive.org/web/20191107082047/https://internetofthingsagenda.techtarget.com/definition/Internet-of-Things-IoT},
+  author = {IoT Agenda (website)},
   keywords = {documentación,ejemplos,IoT},
   file = {/home/cuack/Zotero/storage/QJDUX8LC/Internet-of-Things-IoT.html}
 }
 
-@misc{EjemplosEnchufesClasificacion,
+@misc{enchufeinteligente.netwebsiteEjemplosEnchufesClasificacion,
   title = {{Ejemplos de enchufes y clasificaci{\'o}n: "Enchufe Inteligente: el dispositivo que te ayuda a controlar la electricidad"}},
   shorttitle = {{Enchufe Inteligente}},
   abstract = {Tienda online de ENCHUFES INTELIGENTES Monitorizaci{\'o}n Energ{\'i}a Control Remoto Wifi Programable Compatible con IA No quieres ser de los {\'u}ltimos que tengan un enchufe inteligente, \textquestiondown{}verdad? Controla tu casa sin ning{\'u}n esfuerzo \textquestiondown{}Quieres comprar enchufes inteligentes?~ \textexclamdown{}Entonces est{\'a}s en el sitio correcto! Enchufe inteligentewifi Ver m{\'a}s Enchufe inteligente control remoto Ver m{\'a}s Enchufe inteligente monitorizaci{\'o}n \ldots{}},
   language = {es-ES},
   journal = {EnchufeInteligente.net},
   howpublished = {https://web.archive.org/web/20191111121342/https://enchufeinteligente.net/},
-  keywords = {ejemplos,Documentación,enchufes},
+  author = {EnchufeInteligente.net (website)},
+  keywords = {Documentación,ejemplos,enchufes},
   file = {/home/cuack/Zotero/storage/FC4YCAQB/enchufeinteligente.net.html}
 }
 
-@misc{Garza400603Temporizador,
+@misc{amazonwebsiteGarza400603Temporizador,
   title = {Garza 400603 {{Temporizador}} Anal{\'o}gico Mini, {{Blanco}} - {{Azul}}: {{Amazon}}.Es: {{Bricolaje}} y Herramientas},
   howpublished = {https://web.archive.org/web/20191111121153/https://www.amazon.es/Garza-Power-Temporizador-anal\%C3\%B3gico-programaci\%C3\%B3n/dp/B00URUVDW2/},
+  author = {Amazon (website)},
   keywords = {teletienda},
   file = {/home/cuack/Zotero/storage/3TSHCH3N/ref=sr_1_2.html}
 }
 
-@misc{OrbegozoPG202019,
+@misc{amazonwebsiteOrbegozoPG202019,
   title = {Orbegozo {{PG}} 20 - {{Programador}} El{\'e}ctrico Digital Con Pantalla {{LCD}}, Temporizador de Funcionamiento Programable: {{Amazon}}.Es: {{Hogar}}},
   shorttitle = {Orbegozo {{PG}} 20 - {{Programador}} El{\'e}ctrico Digital Con Pantalla {{LCD}}, Temporizador de Funcionamiento Programable},
   howpublished = {https://web.archive.org/web/20191112121450/https://www.amazon.es/dp/B00ZJ1LQDK},
+  author = {Amazon (website)},
   month = nov,
   year = {2019},
   keywords = {teletienda},
   file = {/home/cuack/Zotero/storage/9835A83W/B00ZJ1LQDK.html}
 }
 
-@misc{TPLinkHS100Enchufe,
+@misc{amazonwebsiteTPLinkHS100Enchufe,
   title = {{{TP}}-{{Link HS100}} - {{Enchufe}} Inteligente Para Controlar Sus Dispositivos Desde Cualquier Lugar, Sin Necesidad de Concentrador, Funciona Con {{Amazon Alexa}} y {{Google Home}} e {{IFTTT}}: {{Tp}}-{{Link}}: {{Amazon}}.Es: {{Inform{\'a}tica}}},
   howpublished = {https://web.archive.org/web/20191112130933/https://www.amazon.es/dp/B06W586CDZ},
+  author = {Amazon (website)},
   keywords = {teletienda},
   file = {/home/cuack/Zotero/storage/5AYQNY7T/B06W586CDZ.html}
 }
 
-@misc{ESP32AnalogInput2019,
+@misc{randomnerdtutorialswebsiteESP32AnalogInput2019,
   title = {{{ESP32 Analog Input}} with {{Arduino IDE}}},
   abstract = {Learn how to read ESP32 Analog Inputs with Arduino IDE using analogRead function. Analog reading is useful to read values from potentiometers, analog sensors, etc},
   language = {en-US},
   journal = {Random Nerd Tutorials},
+  author = {Random Nerd Tutorials (website)},
   month = may,
   year = {2019},
   keywords = {ADC,analog,ESP32,pinout,wifi},
   file = {/home/cuack/Zotero/storage/KUPP6MBS/esp32-adc-analog-read-arduino-ide.html}
 }
 
-@misc{Xiaomi18082Regleta2019,
+@misc{amazonwebsiteXiaomi18082Regleta2019,
   title = {Xiaomi, 18082, {{Regleta}}, {{Blanco}}: {{Xiaomi}}: {{Amazon}}.Es: {{Electr{\'o}nica}}},
   shorttitle = {Xiaomi, 18082, {{Regleta}}, {{Blanco}}},
   howpublished = {https://web.archive.org/web/20191116174434/https://www.amazon.es/dp/B07DJ2G1CW},
+  author = {Amazon (website)},
   month = nov,
   year = {2019},
   keywords = {teletienda},
@@ -387,18 +162,11 @@ Diseño de la arquitectura del sistema
   file = {/home/cuack/Zotero/storage/V37HD3ME/Weyrich y Ebert - 2016 - Reference Architectures for the Internet of Things.pdf}
 }
 
-@misc{PDFReferenceArchitectures2019,
-  title = {({{PDF}}) {{Reference Architectures}} for the {{Internet}} of {{Things}}},
-  howpublished = {https://web.archive.org/web/20191116195145/https://www.researchgate.net/publication/288855901\_Reference\_Architectures\_for\_the\_Internet\_of\_Things},
-  month = nov,
-  year = {2019},
-  file = {/home/cuack/Zotero/storage/EJ48RB7U/288855901_Reference_Architectures_for_the_Internet_of_Things.html}
-}
-
-@misc{InternetThingsSurvey2019,
+@misc{luigiatzoriInternetThingsSurvey2019,
   title = {The {{Internet}} of {{Things}}: {{A}} Survey - {{ScienceDirect}}},
   shorttitle = {The {{Internet}} of {{Things}}},
-  howpublished = {https://web.archive.org/web/20191116203648/https://www.sciencedirect.com/science/article/abs/pii/S1389128610001568?via=ihub},
+  howpublished = {https://web.archive.org/web/20191116203648/https://web.archive.org/web/20190326025756/https://www.sciencedirect.com/science/article/abs/pii/S1389128610001568},
+  author = {Luigi Atzori and Antonio Iera and Giacomo Morabito},
   month = nov,
   year = {2019},
   keywords = {documentación,IoT,arquitectura},

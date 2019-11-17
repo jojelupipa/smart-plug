@@ -1,0 +1,243 @@
+\documentclass[a4paper,10pt]{article}
+
+% Lenguaje
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\setlength{\parindent}{0pt}
+
+% Ajustes documento
+\usepackage{geometry}
+\geometry{left=3cm,right=3cm,top=3cm,bottom=3cm,headheight=1cm,headsep=0.5cm}
+\usepackage{enumitem}
+
+\usepackage{hyperref}
+
+\usepackage{amsmath}
+\begin{document}
+
+\section{Internet de las Cosas}\label{internet-de-las-cosas}
+
+Uno de los términos más recurrentes en el ámbito de la tecnología a día
+de hoy es el de ``Internet de las Cosas'' (en inglés, IoT, Internet of
+Things). Pero, puesto que el término puede resultar ambiguo, es
+conveniente dar una definición sobre esta que permita esclarecer el
+concepto.
+
+El Internet de las Cosas es un paradigma tecnológico en sí mismo.
+Desglosándo el concepto vemos que reúne dos tecnologías. Por un lado
+parte de ``las cosas'', que abarca desde los dispositivos y
+electrodomésticos que podemos encontrar en nuestro día a día; que tienen
+una funcionalidad en sí misma (p.ej. una televisión, un frigorífico)
+hasta incluso podemos abstraer a personas o animales (una persona con un
+marcapasos o un ave con un geolocalizador,
+\href{https://internetofthingsagenda.techtarget.com/definition/Internet-of-Things-IoT}{ejemplos que podemos encontrar aquí}
+). A estas ``cosas'' se les añade el término
+``Internet'', que no es más que una abstracción de la conectividad que
+permite dotar a las cosas de comunicación con el exterior, extendiendo
+sus funcionalidades sin privarlas de su funcionamiento original. Esta es
+su principal característica, la posibilidad de comunicación con otras
+``cosas'' mediante internet y sin la necesidad de intervención humana.
+
+La idea que trasciende de esto es que cualquier cosa o dispositivo que
+usemos habitualmente puede conectarse a una red, a internet. Haciendo
+que, en términos de redes, un dispositivo IoT se pueda equiparar a un
+ordenador convencional.
+
+\subsection{¿Qué es un dispositivo
+IoT?}\label{quuxe9-es-un-dispositivo-iot}
+
+En el símil anterior hemos adelantado el concepto de dispositivo IoT sin
+llegar a definirlo completamente. A continuación explicaremos qué es
+concretamente un dispositivo IoT y qué lo diferencia de otras ``cosas''.
+
+Un dispositivo IoT es una entidad (objeto, o incluso animales o
+personas) que tiene una funcionalidad en sí misma y a la cual dotamos de
+una capacidad de conexión y telecomunicación. De modo que sea capaz de,
+por sí misma, comunicarse con otros dispositivos en su entorno con esta
+misma capacidad.
+
+Los beneficios que podemos obtener de este paradigma se pueden aplicar
+en muchas áreas, por
+ejemplo\href{http://ird.sut.ac.th/e-journal/Journal/suwimonv/1403739/1403739.pdf}{p
+5-17}:
+
+\begin{itemize}
+\item
+  Logística: Rastreo de envíos por correo o estado del stock en
+  almacenes, automatizando lectura de los ítems mediante wifi.
+\item
+  Transporte: Gestión automática de rutas por GPS; captura y procesado
+  de infracciones de velocidad.
+\item
+  Salud: Desde una pulsera que capte tus hábitos de vida hasta
+  monitorización de personas ancianas que viven solas.
+\item
+  Monitorización: Desde instalación de sensores en un bosque para medir
+  datos de contaminación hasta medir en un hogar el consumo de un
+  electrodoméstico.
+\end{itemize}
+
+Este último ejemplo es justo la motivación de nuestro trabajo. Podemos
+usar esta tecnología para crear un enchufe inteligente que nos permita
+saber nuestro consumo eléctrico y controlar el uso que le damos.
+
+\section{Revisión de enchufes inteligentes existentes en el
+mercado}\label{revisiuxf3n-de-enchufes-inteligentes-existentes-en-el-mercado}
+
+\subsection{¿Qué es un enchufe? Tipos de
+enchufe}\label{quuxe9-es-un-enchufe-tipos-de-enchufe}
+
+Un enchufe es una fuente de alimentación entre sistemas eléctricos. En
+este proyecto trataremos los enchufes dentro del ámbito doméstico o
+comercial frente al ámbito industrial, que tiende a trabajar con
+voltajes de un orden muy superior.
+
+Un enchufe en el ámbito doméstico permite la conexión entre un
+dispositivo electrónico y la corriente alterna para la alimentación de
+este dispositivo.
+
+Estos trabajan con unos voltajes entre 100V y 240V
+(https://www.iec.ch/worldplugs/list\_byelectricpotential.htm). El tipo
+de enchufe, voltaje y frecuencia usados en una región geográfica vienen
+determinados por un convenio fijado por el gobierno de esa zona.
+
+Por razones históricas
+(https://www.nuevatribuna.es/articulo/ciencia/origen-frecuencias-electricas-50-y-60-hz/20150811110350118983.html)
+no existe una estandarización.
+
+Trabajaremos con el tipo de enchufe usado en España, que cuenta con un
+potencial de 230V y una frecuencia de 50Hz.
+(https://www.iec.ch/worldplugs/list\_bylocation.htm).
+
+\subsection{¿Qué es un enchufe
+inteligente?}\label{quuxe9-es-un-enchufe-inteligente}
+
+Un enchufe inteligente extiende esta definición de enchufe. Actuando
+como una interfaz que permite añadir un amplio abanico de
+funcionalidades relativas al manejo y supervisión de estos dispositivos
+externos. Dotándole de las ventajas de la conectividad.
+
+Esto encaja con la definición de dispositivo IoT que mencionábamos
+previamente. Un objeto cotidiano que ha sido dotado de la capacidad de
+comunicación con otros dispositivos.
+
+\subsection{Funcionalidades comunes que ofertan los enchufes
+electrónicos
+actualmente}\label{funcionalidades-comunes-que-ofertan-los-enchufes-electruxf3nicos-actualmente}
+
+\subsubsection{Monitorización:}\label{monitorizaciuxf3n}
+
+Supervisar el uso de energía: Esto permite establecer un control sobre
+su uso, realizar estimaciones sobre el coste o incluso notificar frente
+a anomalías como el consumo en horarios no esperados o picos de voltaje.
+
+\subsubsection{Control:}\label{control}
+
+Manejar tus dispositivos de manera remota, programar el horario de
+funcionamiento de estos o la manera en la que funcionan son solo algunas
+de las posibilidades. Destacando la posibilidad de integración con otros
+dispositivos que proporcionen una mayor accesibilidad (p.ej. la interfaz
+de voz de un asistente de móvil).
+
+\subsection{Tipos de enchufes}\label{tipos-de-enchufes}
+
+Atendiendo a sus características más distintivas podemos hacer una
+clasificación (no excluyente) de:
+
+\begin{itemize}
+\item
+  Enchufes inteligentes (E.I.) por control remoto (wifi, bluetooth,
+  infrarojos u otros tipos de señales electromagnéticas)
+\item
+  E.I. programables
+\item
+  E.I. de regletas
+\end{itemize}
+
+\subsection{Modelos en el mercado}\label{modelos-en-el-mercado}
+
+La comercialización de este producto está muy extendida, proporcionando
+una amplia oferta de productos los cuales podemos recogerlos bajo la
+clasificación previa:
+
+\begin{itemize}
+\item
+  Programación temporal: Permiten la ejecución de tareas a horas
+  concretas del día. Por ejemplo:
+  \href{https://web.archive.org/web/20191111121153/https://www.amazon.es/Garza-Power-Temporizador-anal\%C3\%B3gico-programaci\%C3\%B3n/dp/B00URUVDW2/}{Garza
+  400603, analógico},
+  \href{https://web.archive.org/web/20191112121450/https://www.amazon.es/dp/B00ZJ1LQDK}{Orbegozo
+  PG 20, digital}
+\item
+  Control remoto: Se pueden controlar con mando a distancia, a través de
+  una app o con control por voz. Por ejemplo:
+  \href{https://web.archive.org/web/20191112130933/https://www.amazon.es/dp/B06W586CDZ}{TP-Link
+  HS100} o la
+  \href{https://web.archive.org/web/20191116174434/https://www.amazon.es/dp/B07DJ2G1CW}{Regleta
+  Xiaomi}, que es un ejemplo de intersección entre E.I. de regleta y por
+  control remoto.
+\end{itemize}
+
+\section{Arquitecturas IoT}\label{arquitecturas-iot}
+
+El paradigma de IoT viene a integrarse entre los mecanismos
+convencionales y el resto de redes. En sus primeros pasos se adaptaron
+sus diseños a las necesidades de estos sistemas. Pero según fue
+desarrollándose fueron naciendo algunas arquitecturas que ayudaban a
+definir y a trabajar mejor con los requisitos de estos nuevos sistemas.
+
+Existen diferentes arquitecturas en la actualidad, que difieren en el
+enfoque que le dan a ciertos campos. Dos de los más conocidos son IoT-A
+e IIRA. Siendo el primero el más extendido desde su lanzamiento en 2012
+\href{https://web.archive.org/web/20191116195145/https://www.researchgate.net/publication/288855901_Reference_Architectures_for_the_Internet_of_Things}{}.
+
+Estos campos de comparación
+son:\href{https://web.archive.org/web/20191116203648/https://www.sciencedirect.com/science/article/abs/pii/S1389128610001568?via=ihub}{}
+
+\begin{itemize}
+\item
+  El enfoque particular a casos de negocio frente a conceptos generales.
+\item
+  Orientación a Internet: Se introducen nuevos protocolos y se adaptan
+  los ya existentes a sus necesidades.
+\item
+  Tipo de dispositivo sobre el cual se orienta (como sensores o
+  actuadores).
+\end{itemize}
+
+\subsection{Modelos de interconexión de
+red}\label{modelos-de-interconexiuxf3n-de-red}
+
+\subsection{Protocolos}\label{protocolos}
+
+Dos ordenadores convencionales necesitan una pila de protocolos para que
+puedan transmitir información a las distintas capas que conforman la
+comunicación. Ante los requisitos que surgían con los dispositivos IoT,
+surgían también protocolos que daban respuesta a estos. Estableciéndose
+así una pila de protocolos de red especializada para IoT.
+
+\section{Diseño de la arquitectura de nuestro
+sistema}\label{diseuxf1o-de-la-arquitectura-de-nuestro-sistema}
+
+\subsection{Descripción general}\label{descripciuxf3n-general}
+
+\subsection{Modelo de red usado}\label{modelo-de-red-usado}
+
+\subsection{Protocolo MQTT}\label{protocolo-mqtt}
+
+\subsection{Diseño broker, publishers,
+suscribers}\label{diseuxf1o-broker-publishers-suscribers}
+
+
+
+\newpage
+
+\cite{IECWorldPlugs}
+
+%\nocite{*}
+
+
+\bibliographystyle{abbrv}
+\bibliography{biblio} 
+
+\end{document}
