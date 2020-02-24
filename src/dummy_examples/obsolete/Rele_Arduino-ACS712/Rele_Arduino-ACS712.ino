@@ -57,8 +57,9 @@ float getCurrentAC(uint16_t frequency= 50) {
   uint32_t Isum = 0, measurements_count = 0;
   int32_t Inow;
 
-  while (micros() - t_start < period) {
-    Inow = zero - analogRead(A0);
+  while (micros() - t_start < 10 * period) {
+    int32_t reading = analogRead(A0); 
+    Inow = zero - reading;
     Isum += Inow*Inow;
     measurements_count++;
   }
