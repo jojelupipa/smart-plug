@@ -30,14 +30,21 @@ const int mqttPort = 1883;
 const char* mqttUser = "esp32";
 const char* mqttPassword = "esp32tfg";
 String clientId = "ESP32Client";
+String publishTopic = "/consumption/";
+String receiverTopic = "/control/toggle/";
+
+//Wifi Settings
+const char* ssid = "replaceWithSSID";
+const char* password =  "replaceWithPassword";
 WiFiClient wifiClient;
 PubSubClient client(wifiClient);
+String relayStatus = "HIGH";
 
 
 void setup() {
-
   pinMode(32, OUTPUT);
   digitalWrite(32, HIGH);
+  relayStatus = "HIGH";
   adc1_config_channel_atten(ADC1_CHANNEL_6, ADC_ATTEN_DB_11);
   analogReadResolution(10);
   Serial.begin(9600);
@@ -83,11 +90,17 @@ void loop() {
     sendInfo(mean);
     measureIndex = 0;
   }
-
+  client.loop();
 }
 
+
+// Start up wifi, if it's first time, must use Wifi.begin(ssid, password) to connect. You can use Wifi.begin() afterwards
+// to avoid exposing your password in your code
+
+
 void setWifi() {
-  WiFi.begin();
+  WiFi.begin(); // Asume you already connected it, otherwise you'll have to use Wifi.begin(<ssid>,<password>)
+  //Wifi.begin(ssid, password)
   while (WiFi.status() != WL_CONNECTED) {
     delay(5000);
     Serial.println("Connecting to WiFi...");
@@ -97,31 +110,43 @@ void setWifi() {
   Serial.println(WiFi.localIP());
 }
 
+
+// Connects to the server
+
+
 void setMQTTConnection() {
   // Set the server IP and port
   client.setServer(mqttServer, mqttPort);
+  client.setCallback(callback);
   while (!client.connected()) {
     Serial.print("Stablishing MQTT connection... ");
     // Attempt to connect
     if (client.connect(clientId.c_str(),mqttUser,mqttPassword)) {
       Serial.println("connected");
       client.publish("/connections/presence/ESP32/", "connected");
+      if(client.subscribe(receiverTopic.c_str())) {
+        client.publish("/connections/presence/ESP32/", "esp32 subbed to /control/");
+      }
       } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());
       Serial.println(" try again in 1 second");
-      // Wait a seconds before retrying
+      // Wait a second before retrying
       delay(1000);  
     }
   }
 }
 
-void sendInfo(float consumption){
+
+// Tries to connect and send the read data
+
+
+void sendInfo(float consumption) {
   if(!client.connected()){
     setMQTTConnection();
   }
   if (client.connect(clientId.c_str(),mqttUser,mqttPassword)) {
-      client.publish("/consumption/", String(consumption).c_str());
+      client.publish(publishTopic.c_str(), String(consumption).c_str());
       Serial.print("Data ");
       Serial.print(consumption);
       Serial.println(" sent");
@@ -129,5 +154,36 @@ void sendInfo(float consumption){
     Serial.println("The client was disconnected unexpectedly. Trying to resend...");
     delay(1000);
     sendInfo(consumption);
+  }
+}
+
+
+// Callback function to manage the relay's status
+
+
+void callback(char* topic, byte *payload, unsigned int length) {
+  Serial.println("-------new message from broker-----");
+  Serial.print("channel:");
+  Serial.println(topic);
+  Serial.print("data:");  
+  Serial.write(payload, length);
+  Serial.println();
+
+  // Toggle relay as /control/toggle/ is the only topic suscribing to
+  // If willing to add new features control the received message
+  toggleRelay();
+}
+
+
+// Toggles the Relay status
+
+
+void toggleRelay() {
+  if (relayStatus == "HIGH"){
+      digitalWrite(32, LOW);
+      relayStatus = "LOW";  
+  } else if (relayStatus == "LOW") {
+      digitalWrite(32, HIGH);
+      relayStatus = "HIGH";
   }
 }
