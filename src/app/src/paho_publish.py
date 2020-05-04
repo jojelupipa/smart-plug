@@ -75,7 +75,6 @@ if __name__ == "__main__":
     parser = optparse.OptionParser()
     set_parser_options(parser)
     options, args = parser.parse_args()
-    print(options)
     mqttc = mqtt.Client()
     set_up_connection(mqttc, options.user, options.password,
                       options.broker_ip, options.port)
