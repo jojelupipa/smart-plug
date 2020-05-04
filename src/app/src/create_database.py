@@ -20,6 +20,17 @@ create table if not exists settings (
   value text not null
 );
 """
+# Insert default settings into database if aren't already defined
+db_default_settings = """
+insert into settings select 'user', 'esp32'
+where not exists(select 1 from settings where parameter = 'user');
+insert into settings select 'password', 'esp32tfg'
+where not exists(select 1 from settings where parameter = 'password');
+insert into settings select 'broker_ip', '192.168.1.10'
+where not exists(select 1 from settings where parameter = 'broker_ip');
+insert into settings select 'port', '1883'
+where not exists(select 1 from settings where parameter = 'port');
+"""
 
 
 def set_parser_options(parser):
@@ -28,30 +39,31 @@ def set_parser_options(parser):
 
 
 def create_power_database(force=False):
-    table_schema = ""
+    creation_command = ""
     if force:
-        table_schema += "drop table if exists power_consumption_data;"
-    table_schema += db_power_schema
+        creation_command += "drop table if exists power_consumption_data;"
+    creation_command += db_power_schema
     # Create database (connection)
     connection = sqlite3.connect(db_power_name)
     # Create
     cursor = connection.cursor()
-    cursor.executescript(table_schema)
+    cursor.executescript(creation_command)
     # Close database
     cursor.close()
     connection.close()
 
 
 def create_settings_database(force=False):
-    table_schema = ""
+    creation_command = ""
     if force:
-        table_schema += "drop table if exists settings;"
-    table_schema += db_settings_schema
+        creation_command += "drop table if exists settings;"
+    creation_command += db_settings_schema
+    creation_command += db_default_settings
     # Create database (connection)
     connection = sqlite3.connect(db_settings_name)
     # Create
     cursor = connection.cursor()
-    cursor.executescript(table_schema)
+    cursor.executescript(creation_command)
     # Close database
     cursor.close()
     connection.close()
