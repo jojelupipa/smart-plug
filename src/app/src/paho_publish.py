@@ -1,12 +1,7 @@
 # ------------------------------------------
 # --- Author: Jesús Sánchez de Lechina Tejada
-# --- Python Ver: 3.8.2
 # ------------------------------------------
-# Optional paramaters:
-# python <user> <password> <broker_ip>
-#
 
-import sys
 import paho.mqtt.client as mqtt
 import optparse
 
@@ -58,7 +53,6 @@ def publish_to_topic(mqttc, topic, message):
           "on MQTT Topic: \"" + str(topic) + "\"")
 
 
-
 # Set parser options
 
 
@@ -83,6 +77,7 @@ if __name__ == "__main__":
     options, args = parser.parse_args()
     print(options)
     mqttc = mqtt.Client()
-    set_up_connection(mqttc, options.user, options.password, options.broker_ip, options.port)
+    set_up_connection(mqttc, options.user, options.password,
+                      options.broker_ip, options.port)
     publish_to_topic(mqttc, options.topic, options.message)
     mqttc.disconnect(mqttc)
