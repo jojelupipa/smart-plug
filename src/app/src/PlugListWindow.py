@@ -6,6 +6,7 @@
 
 import app_utils
 import subprocess
+import PlugWindow
 from PySide2 import QtWidgets
 
 
@@ -21,9 +22,9 @@ class PlugListWindow(QtWidgets.QDialog):
         button_back = self.window.findChild(QtWidgets.QPushButton,
                                             "back_button")
         button_back.clicked.connect(self.back)
-        button_general_toggle = self.window.findChild(QtWidgets.QPushButton,
-                                                      "general_toggle")
-        button_general_toggle.clicked.connect(self.general_toggle)
+        button_general = self.window.findChild(QtWidgets.QPushButton,
+                                               "general_button")
+        button_general.clicked.connect(self.general_button)
         self.update_status()
 
     def update_status(self):
@@ -35,7 +36,7 @@ class PlugListWindow(QtWidgets.QDialog):
         pub_command += " -b " + settings["broker_ip"]
         pub_command += " -p " + settings["port"]
         pub_command += " -t /control/connection/"
-        pub_command += " -m 'connection test'"
+        pub_command += " -m 'client_connection_check'"
         try:
             subprocess.check_output(pub_command,
                                     shell=True)
@@ -49,13 +50,7 @@ class PlugListWindow(QtWidgets.QDialog):
     def back(self):
         self.window.close()
 
-    def general_toggle(self):
-        pub_command = "python paho_publish.py"
-        settings = app_utils.get_settings()
-        pub_command += " -u " + settings["user"]
-        pub_command += " -P " + settings["password"]
-        pub_command += " -b " + settings["broker_ip"]
-        pub_command += " -p " + settings["port"]
-        pub_command += " -m 'general toggle'"
-        subprocess.call(pub_command,
-                        shell=True)
+    def general_button(self):
+        window_general_plug = PlugWindow.PlugWindow(name="general")
+        window_general_plug.window.setModal(True)
+        window_general_plug.window.exec()

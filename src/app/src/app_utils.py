@@ -1,5 +1,9 @@
 # This Python file uses the following encoding: utf-8
 
+# ------------------------------------------
+# --- Author: Jesús Sánchez de Lechina Tejada
+# ------------------------------------------
+
 import sqlite3
 from PySide2 import QtCore, QtWidgets
 from PySide2.QtUiTools import QUiLoader

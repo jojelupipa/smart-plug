@@ -1,5 +1,3 @@
-# Python Ver: 2.7
-
 import os
 import sqlite3
 import optparse
@@ -9,7 +7,8 @@ db_power_name = db_dir + "power_consumption.db"
 db_power_schema = """
 create table if not exists power_consumption_data (
   id integer primary key autoincrement,
-  date_time text,
+  name text not null,
+  date_time text not null,
   power_consumption text not null
 );
 """

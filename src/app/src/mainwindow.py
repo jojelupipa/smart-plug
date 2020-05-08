@@ -26,6 +26,7 @@ class HomeWindow(QtWidgets.QMainWindow):
         button_plug_list.clicked.connect(self.open_plug_list_widget)
         button_settings = self.window.central_widget.findChild(QtWidgets.QPushButton, "settings_button")
         button_settings.clicked.connect(self.open_settings_widget)
+        #self.sub_to_broker()
 
     def open_plug_list_widget(self):
         window_plug_list = PlugListWindow.PlugListWindow()
@@ -45,6 +46,10 @@ class HomeWindow(QtWidgets.QMainWindow):
         command = "python create_database.py"
         if force:
             command += " -f"
+        subprocess.call(command, shell=True)
+
+    def sub_to_broker(self):
+        command = "python paho_sub.py"
         subprocess.call(command, shell=True)
 
 

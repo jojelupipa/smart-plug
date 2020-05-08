@@ -12,6 +12,7 @@ Keep_Alive_Interval = 100
 MQTT_Topic_Toggle = "/control/toggle/"
 MQTT_User = "esp32"
 MQTT_Password = "esp32tfg"
+VERBOSE = False
 
 
 # Define Callbacks
@@ -30,7 +31,7 @@ def on_publish(client, userdata, mid):
 def on_disconnect(client, userdata, rc):
     if rc != 0:
         print("Unable to disconnect")
-    else:
+    elif VERBOSE:
         print("Disconnected!")
 
 
@@ -49,26 +50,29 @@ def set_up_connection(mqttc, user, password, broker_ip, port):
 
 def publish_to_topic(mqttc, topic, message):
     mqttc.publish(topic, message)
-    print("Published: \"" + str(message) + "\" " +
-          "on MQTT Topic: \"" + str(topic) + "\"")
+    if VERBOSE:
+        print("Published: \"" + str(message) + "\" " +
+              "on MQTT Topic: \"" + str(topic) + "\"")
 
 
 # Set parser options
 
 
 def set_parser_options(parser):
-    parser.add_option('-u', '--user', action="store", dest="user",
+    parser.add_option("-u", "--user", action="store", dest="user",
                       help="Set MQTT user", default=MQTT_User)
-    parser.add_option('-P', '--password', action="store", dest="password",
+    parser.add_option("-P", "--password", action="store", dest="password",
                       help="Set MQTT password", default=MQTT_Password)
-    parser.add_option('-b', '--broker-ip', action="store", dest="broker_ip",
+    parser.add_option("-b", "--broker-ip", action="store", dest="broker_ip",
                       help="Set broker's ip", default=MQTT_Broker)
-    parser.add_option('-p', '--port', action="store", dest="port",
+    parser.add_option("-p", "--port", action="store", dest="port",
                       help="Set MQTT port, default 1883", default=MQTT_Port)
-    parser.add_option('-m', '--message', action="store", dest="message",
+    parser.add_option("-m", "--message", action="store", dest="message",
                       help="Set message to be sent", default="")
-    parser.add_option('-t', '--topic', action="store", dest="topic",
+    parser.add_option("-t", "--topic", action="store", dest="topic",
                       help="Set MQTT topic", default=MQTT_Topic_Toggle)
+    parser.add_option("-v", "--verbose", action="store_true", dest="verbose",
+                      help="Verbose output", default=False)
 
 
 if __name__ == "__main__":
