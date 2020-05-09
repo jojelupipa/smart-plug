@@ -44,7 +44,7 @@ class PlugListWindow(QtWidgets.QDialog):
         except subprocess.CalledProcessError:
             status_label.setText("Error de conexión\nRevise ajustes y servidor")
             button_general_toggle = self.window.findChild(QtWidgets.QPushButton,
-                                                          "general_toggle")
+                                                          "general_button")
             button_general_toggle.setEnabled(False)
 
     def back(self):
