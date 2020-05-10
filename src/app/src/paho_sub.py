@@ -17,11 +17,13 @@ VERBOSE = False
 keep_alive_interval = 100
 MQTT_topic = "/data/consumption/#"
 
+
 # Define Callbacks
 
 
 def on_connect(client, userdata, rc):
     print("Suscribed to /data/consumption/# ", flush=True)
+
 
 def on_disconnect(client, userdata, rc):
     if rc != 0:
@@ -60,15 +62,25 @@ def save_to_db(topic, message):
     conn.close()
 
 
-def subscribe(verbose=False):
-    global VERBOSE
-    VERBOSE = verbose
-    settings = app_utils.get_settings()
-    mqttc = mqtt.Client()
-    set_up_connection(mqttc, settings["user"], settings["password"],
-                      settings["broker_ip"], settings["port"])
-    mqttc.loop_forever()
+class Subscriber():
+
+    def __init__(self, verbose=False):
+        global VERBOSE
+        VERBOSE = verbose
+        settings = app_utils.get_settings()
+        self.mqttc = mqtt.Client()
+        set_up_connection(self.mqttc, settings["user"], settings["password"],
+                          settings["broker_ip"], settings["port"])
+
+    def subscribe(self):
+        self.mqttc.loop_forever()
+        if VERBOSE:
+            print("Ended loop", flush=True)
+
+    def disconnect(self):
+        self.mqttc.disconnect()
 
 
 if __name__ == "__main__":
-    subscribe()
+    subscriber = Subscriber()
+    subscriber.subscribe()
