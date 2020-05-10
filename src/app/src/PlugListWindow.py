@@ -15,7 +15,6 @@ from PySide2 import QtWidgets
 
 class PlugListWindow(QtWidgets.QDialog):
     plug_list = app_utils.UI_PATH + "./smart_plug_list.ui"
-    window = None
 
     def __init__(self):
         self.window = app_utils.load_scene(self.plug_list)

@@ -9,6 +9,7 @@ import subprocess
 import app_utils
 import SettingsWindows
 import PlugListWindow
+import threading
 from PySide2 import QtWidgets
 
 
@@ -17,7 +18,6 @@ from PySide2 import QtWidgets
 
 class HomeWindow(QtWidgets.QMainWindow):
     main_window = app_utils.UI_PATH + "main_window.ui"
-    window = None
 
     def __init__(self):
         self.window = app_utils.load_scene(self.main_window)
@@ -26,7 +26,8 @@ class HomeWindow(QtWidgets.QMainWindow):
         button_plug_list.clicked.connect(self.open_plug_list_widget)
         button_settings = self.window.central_widget.findChild(QtWidgets.QPushButton, "settings_button")
         button_settings.clicked.connect(self.open_settings_widget)
-        #self.sub_to_broker()
+        thr = threading.Thread(target=self.sub_to_broker, args=(), kwargs={})
+        thr.start()
 
     def open_plug_list_widget(self):
         window_plug_list = PlugListWindow.PlugListWindow()
