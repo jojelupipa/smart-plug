@@ -24,13 +24,13 @@ class HomeWindow(QtWidgets.QMainWindow):
         super(HomeWindow, self).__init__(parent)
         self.window = app_utils.load_scene(self.main_window)
         self.create_database()
-        button_plug_list = self.window.central_widget.findChild(QtWidgets.QPushButton, "open_plug_list")
-        button_plug_list.clicked.connect(self.open_plug_list_widget)
-        button_settings = self.window.central_widget.findChild(QtWidgets.QPushButton, "settings_button")
-        button_settings.clicked.connect(self.open_settings_widget)
-        self.subscriber = paho_sub.Subscriber()
-        thr = threading.Thread(target=self.subscriber.subscribe, args=(), kwargs={})
-        thr.start()
+        self.button_plug_list = self.window.central_widget.findChild(QtWidgets.QPushButton, "open_plug_list")
+        self.button_plug_list.clicked.connect(self.open_plug_list_widget)
+        self.button_settings = self.window.central_widget.findChild(QtWidgets.QPushButton, "settings_button")
+        self.button_settings.clicked.connect(self.open_settings_widget)
+        self.status_text = self.window.central_widget.findChild(QtWidgets.QLabel, "status_text")
+        self.subscriber = None
+        self.subscribe_to_broker()
         self.resize(self.window.size())
         self.setCentralWidget(self.window)
 
@@ -47,6 +47,11 @@ class HomeWindow(QtWidgets.QMainWindow):
         self.hide()
         window_settings.window.exec()
         self.show()
+        try:
+           self.subscriber.disconnect()
+        except AttributeError:
+            print("Reintentando suscripción al broker", flush=True)
+        self.subscribe_to_broker()
 
     def create_database(self, force=False):
         command = "python create_database.py"
@@ -57,6 +62,16 @@ class HomeWindow(QtWidgets.QMainWindow):
     def closeEvent(self, event):
         self.subscriber.disconnect()
         event.accept()
+
+    def subscribe_to_broker(self):
+        try:
+            self.subscriber = paho_sub.Subscriber()
+            thr = threading.Thread(target=self.subscriber.subscribe, args=(), kwargs={})
+            thr.start()
+            self.status_text.setText("Conectado")
+        except (AttributeError, subprocess.CalledProcessError, OSError) as e:
+            self.status_text.setText("Desconectado, revise conexión con el servidor")
+            print(e)
 
 
 if __name__ == "__main__":
