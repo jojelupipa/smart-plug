@@ -10,10 +10,8 @@ from PySide2 import QtWidgets
 import sys
 
 
-class SettingsWindows(QtWidgets.QDialog):
+class SettingsWindows:
     settings_ui_path = app_utils.UI_PATH + "settings.ui"
-    window = None
-    settings = {}
 
     def __init__(self):
         self.window = app_utils.load_scene(self.settings_ui_path)

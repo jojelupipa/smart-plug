@@ -13,7 +13,7 @@ from PySide2 import QtWidgets
 ''' Plug List Window '''
 
 
-class PlugListWindow(QtWidgets.QDialog):
+class PlugListWindow:
     plug_list = app_utils.UI_PATH + "./smart_plug_list.ui"
 
     def __init__(self):
