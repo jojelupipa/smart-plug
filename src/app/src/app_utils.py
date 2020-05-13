@@ -39,14 +39,18 @@ def set_settings(settings):
     for parameter in settings:
         cursor.executescript("UPDATE settings SET value = '" + settings[parameter] + "' WHERE parameter = '" + parameter + "';")
 
-def getFromDB(name="general"):
+def getFromDB(name="general", last=False):
     conn = sqlite3.connect(CONSUMPTION_PATH)
     if name == "general":
         cursor = conn.execute("SELECT * FROM power_consumption_data")
     else:
         cursor = conn.execute("SELECT * FROM power_consumption_data WHERE name = '/data/consumption/" + name + "'")
     result = ""
-    for row in cursor:
-        result += str(row) + "\n"
+    if not last:
+        for row in cursor:
+            result += str(row) + "\n"
+    else:
+        cursor = conn.execute("SELECT power_consumption FROM power_consumption_data ORDER BY ID DESC LIMIT 1")
+        return cursor.fetchone()[0]
     return result
 

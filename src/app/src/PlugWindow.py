@@ -25,6 +25,8 @@ class PlugWindow:
         self.button_log = self.window.findChild(QtWidgets.QPushButton,
                                                 "history_button")
         self.button_log.clicked.connect(self.show_log)
+        self.current_consumption = self.window.findChild(QtWidgets.QLabel, "updated_consumption_label")
+        self.current_consumption.setText(app_utils.getFromDB(name="general", last=True) + "W")
         self.name = name
 
     def back(self):
