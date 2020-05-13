@@ -10,6 +10,7 @@ from PySide2.QtUiTools import QUiLoader
 
 UI_PATH = "../ui/"
 SETTINGS_PATH = "../db/settings.db"
+CONSUMPTION_PATH = "../db/power_consumption.db"
 
 
 ''' Main functions'''
@@ -37,3 +38,15 @@ def set_settings(settings):
     cursor = conn.cursor()
     for parameter in settings:
         cursor.executescript("UPDATE settings SET value = '" + settings[parameter] + "' WHERE parameter = '" + parameter + "';")
+
+def getFromDB(name="general"):
+    conn = sqlite3.connect(CONSUMPTION_PATH)
+    if name == "general":
+        cursor = conn.execute("SELECT * FROM power_consumption_data")
+    else:
+        cursor = conn.execute("SELECT * FROM power_consumption_data WHERE name = '/data/consumption/" + name + "'")
+    result = ""
+    for row in cursor:
+        result += str(row) + "\n"
+    return result
+

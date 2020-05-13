@@ -16,12 +16,15 @@ class PlugWindow:
 
     def __init__(self, name="Plug"):
         self.window = app_utils.load_scene(self.plug)
-        button_back = self.window.findChild(QtWidgets.QPushButton,
+        self.button_back = self.window.findChild(QtWidgets.QPushButton,
                                             "back_plug_button")
-        button_back.clicked.connect(self.back)
-        button_toggle = self.window.findChild(QtWidgets.QPushButton,
+        self.button_back.clicked.connect(self.back)
+        self.button_toggle = self.window.findChild(QtWidgets.QPushButton,
                                               "toggle")
-        button_toggle.clicked.connect(self.toggle)
+        self.button_toggle.clicked.connect(self.toggle)
+        self.button_log = self.window.findChild(QtWidgets.QPushButton,
+                                                "history_button")
+        self.button_log.clicked.connect(self.show_log)
         self.name = name
 
     def back(self):
@@ -38,3 +41,11 @@ class PlugWindow:
         pub_command += " -m '" + self.name + " toggle'"
         subprocess.call(pub_command,
                         shell=True)
+
+    def show_log(self):
+        print("Showing log", flush=True)
+        log = app_utils.load_scene(app_utils.UI_PATH + "consumption_log.ui")
+        log.setModal(True)
+        log_text = log.findChild(QtWidgets.QPlainTextEdit, "log")
+        log_text.insertPlainText(app_utils.getFromDB(name="enchufe001"))
+        log.exec()
