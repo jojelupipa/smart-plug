@@ -51,6 +51,6 @@ def getFromDB(name="general", last=False):
             result += str(row) + "\n"
     else:
         cursor = conn.execute("SELECT power_consumption FROM power_consumption_data ORDER BY ID DESC LIMIT 1")
-        return cursor.fetchone()[0]
+        result = cursor.fetchone()[0]
     return result
 

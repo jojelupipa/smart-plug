@@ -14,7 +14,7 @@ MQTT_Topic_Toggle = "/control/toggle/"
 class PlugWindow:
     plug = app_utils.UI_PATH + "./plug.ui"
 
-    def __init__(self, name="Plug"):
+    def __init__(self, name="general"):
         self.window = app_utils.load_scene(self.plug)
         self.button_back = self.window.findChild(QtWidgets.QPushButton,
                                             "back_plug_button")
@@ -26,7 +26,7 @@ class PlugWindow:
                                                 "history_button")
         self.button_log.clicked.connect(self.show_log)
         self.current_consumption = self.window.findChild(QtWidgets.QLabel, "updated_consumption_label")
-        self.current_consumption.setText(app_utils.getFromDB(name="general", last=True) + "W")
+        self.current_consumption.setText(app_utils.getFromDB(name=name, last=True) + "W")
         self.name = name
 
     def back(self):
