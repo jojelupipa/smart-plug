@@ -16,6 +16,7 @@ class PlugWindow:
 
     def __init__(self, name="general"):
         self.window = app_utils.load_scene(self.plug)
+        self.window.setWindowTitle(name)
         self.button_back = self.window.findChild(QtWidgets.QPushButton,
                                             "back_plug_button")
         self.button_back.clicked.connect(self.back)
@@ -26,7 +27,7 @@ class PlugWindow:
                                                 "history_button")
         self.button_log.clicked.connect(self.show_log)
         self.current_consumption = self.window.findChild(QtWidgets.QLabel, "updated_consumption_label")
-        self.current_consumption.setText(app_utils.getFromDB(name=name, last=True) + "W")
+        self.current_consumption.setText(app_utils.getFromDB(name=name, last=True) + " W")
         self.name = name
 
     def back(self):
@@ -49,5 +50,5 @@ class PlugWindow:
         log = app_utils.load_scene(app_utils.UI_PATH + "consumption_log.ui")
         log.setModal(True)
         log_text = log.findChild(QtWidgets.QPlainTextEdit, "log")
-        log_text.insertPlainText(app_utils.getFromDB(name="enchufe001"))
+        log_text.insertPlainText(app_utils.getFromDB(name=self.name))
         log.exec()

@@ -41,16 +41,18 @@ def set_settings(settings):
 
 def getFromDB(name="general", last=False):
     conn = sqlite3.connect(CONSUMPTION_PATH)
+    column = "*"
+    if last:
+        column = "power_consumption"
     if name == "general":
-        cursor = conn.execute("SELECT * FROM power_consumption_data")
+        cursor = conn.execute("SELECT " + column + " FROM power_consumption_data")
     else:
-        cursor = conn.execute("SELECT * FROM power_consumption_data WHERE name = '/data/consumption/" + name + "'")
+        cursor = conn.execute("SELECT " + column + " FROM power_consumption_data WHERE name = '/data/consumption/" + name + "'")
     result = ""
     if not last:
         for row in cursor:
             result += str(row) + "\n"
     else:
-        cursor = conn.execute("SELECT power_consumption FROM power_consumption_data ORDER BY ID DESC LIMIT 1")
-        result = cursor.fetchone()[0]
+        result = cursor.fetchall()[-1][0]
     return result
 
