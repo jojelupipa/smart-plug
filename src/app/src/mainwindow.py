@@ -40,6 +40,7 @@ class HomeWindow(QtWidgets.QMainWindow):
         self.hide()
         window_plug_list.window.exec()
         self.show()
+        self.resubscribe()
 
     def open_settings_widget(self):
         window_settings = SettingsWindows.SettingsWindows()
@@ -47,6 +48,9 @@ class HomeWindow(QtWidgets.QMainWindow):
         self.hide()
         window_settings.window.exec()
         self.show()
+        self.resubscribe()
+
+    def resubscribe(self):
         try:
            self.subscriber.disconnect()
         except AttributeError:
