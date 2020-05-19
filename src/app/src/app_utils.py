@@ -5,6 +5,7 @@
 # ------------------------------------------
 
 import sqlite3
+import datetime
 from PySide2 import QtCore, QtWidgets
 from PySide2.QtUiTools import QUiLoader
 
@@ -33,11 +34,13 @@ def get_settings():
         settings[row[0]] = row[1]
     return settings
 
+
 def set_settings(settings):
     conn = sqlite3.connect(SETTINGS_PATH)
     cursor = conn.cursor()
     for parameter in settings:
         cursor.executescript("UPDATE settings SET value = '" + settings[parameter] + "' WHERE parameter = '" + parameter + "';")
+
 
 def getFromDB(name="general", last=False):
     conn = sqlite3.connect(CONSUMPTION_PATH)
@@ -56,3 +59,16 @@ def getFromDB(name="general", last=False):
         result = cursor.fetchall()[-1][0]
     return result
 
+
+def get_date_power(name="general"):
+    where_clause = ""
+    if name != "general":
+        where_clause = " WHERE name = '/data/consumption/" + name + "'"
+    conn = sqlite3.connect(CONSUMPTION_PATH)
+    cursor = conn.execute("SELECT date_time, power_consumption FROM power_consumption_data" + where_clause)
+    result = cursor.fetchall()
+    formated_result = []
+    for row in result:
+        formated_result.append([datetime.datetime.strptime(row[0], "%a %b %d %H:%M:%S %Y"),
+                               float(row[1])])
+    return formated_result

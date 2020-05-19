@@ -53,7 +53,7 @@ def save_to_db(topic, message):
     command = """
     INSERT INTO power_consumption_data (name, date_time, power_consumption)
     VALUES ('%s', '%s', '%s');
-    """ % (topic, datetime.datetime.now().strftime("%c"), message)
+    """ % (topic, datetime.datetime.now().strftime("%a %b %d %H:%M:%S %Y"), message)
     if VERBOSE:
         print("Executing: " + command + "\nInto " + db_power_name + " database")
     conn = sqlite3.connect(db_power_name)
