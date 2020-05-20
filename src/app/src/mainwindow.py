@@ -64,7 +64,10 @@ class HomeWindow(QtWidgets.QMainWindow):
         subprocess.call(command, shell=True)
 
     def closeEvent(self, event):
-        self.subscriber.disconnect()
+        try:
+            self.subscriber.disconnect()
+        except AttributeError:
+            print("No se pudo conectar al servidor con la última configuración guardada")
         event.accept()
 
     def subscribe_to_broker(self):

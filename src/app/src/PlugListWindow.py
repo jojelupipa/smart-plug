@@ -18,12 +18,12 @@ class PlugListWindow:
 
     def __init__(self):
         self.window = app_utils.load_scene(self.plug_list)
-        button_back = self.window.findChild(QtWidgets.QPushButton,
+        self.button_back = self.window.findChild(QtWidgets.QPushButton,
                                             "back_button")
-        button_back.clicked.connect(self.back)
-        button_general = self.window.findChild(QtWidgets.QPushButton,
+        self.button_back.clicked.connect(self.back)
+        self.button_general = self.window.findChild(QtWidgets.QPushButton,
                                                "general_button")
-        button_general.clicked.connect(self.general_button)
+        self.button_general.clicked.connect(self.general_button)
         self.update_status()
 
     def update_status(self):
@@ -39,12 +39,10 @@ class PlugListWindow:
         try:
             subprocess.check_output(pub_command,
                                     shell=True)
-            status_label.setText("Conectado")
+            status_label.setText("Conectado al broker")
         except subprocess.CalledProcessError:
             status_label.setText("Error de conexión\nRevise ajustes y servidor")
-            button_general_toggle = self.window.findChild(QtWidgets.QPushButton,
-                                                          "general_button")
-            button_general_toggle.setEnabled(False)
+            self.button_general.setEnabled(False)
 
     def back(self):
         self.window.close()
@@ -53,3 +51,4 @@ class PlugListWindow:
         window_general_plug = PlugWindow.PlugWindow(name="general")
         window_general_plug.window.setModal(True)
         window_general_plug.window.exec()
+

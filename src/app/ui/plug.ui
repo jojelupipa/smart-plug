@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>398</width>
-    <height>300</height>
+    <width>1178</width>
+    <height>621</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -30,14 +30,14 @@ Atrás</string>
   <widget class="QLabel" name="const_consumption_label">
    <property name="geometry">
     <rect>
-     <x>130</x>
+     <x>500</x>
      <y>60</y>
      <width>141</width>
      <height>20</height>
     </rect>
    </property>
    <property name="text">
-    <string>Consumo actual</string>
+    <string>Última lectura</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -46,7 +46,7 @@ Atrás</string>
   <widget class="QLabel" name="updated_consumption_label">
    <property name="geometry">
     <rect>
-     <x>150</x>
+     <x>530</x>
      <y>19</y>
      <width>101</width>
      <height>31</height>
@@ -62,21 +62,11 @@ Atrás</string>
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QGraphicsView" name="graphicsView">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>80</y>
-     <width>351</width>
-     <height>151</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QPushButton" name="history_button">
    <property name="geometry">
     <rect>
-     <x>290</x>
-     <y>250</y>
+     <x>1060</x>
+     <y>570</y>
      <width>88</width>
      <height>28</height>
     </rect>
@@ -91,7 +81,7 @@ Atrás</string>
    </property>
    <property name="geometry">
     <rect>
-     <x>290</x>
+     <x>1060</x>
      <y>20</y>
      <width>91</width>
      <height>41</height>
@@ -100,6 +90,17 @@ Atrás</string>
    <property name="text">
     <string>⏻</string>
    </property>
+  </widget>
+  <widget class="QWidget" name="verticalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>100</y>
+     <width>1121</width>
+     <height>451</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="scatter_plot_layout"/>
   </widget>
  </widget>
  <resources/>

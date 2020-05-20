@@ -41,7 +41,7 @@
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="welcome_label">
     <property name="geometry">
      <rect>
       <x>300</x>
@@ -513,6 +513,32 @@
     </property>
     <property name="text">
      <string>⚙  Ajustes</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="connection_label">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>80</y>
+      <width>57</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Estado:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="status_text">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>80</y>
+      <width>371</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Undefined status :(</string>
     </property>
    </widget>
   </widget>
