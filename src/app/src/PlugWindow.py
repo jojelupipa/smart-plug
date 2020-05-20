@@ -58,7 +58,7 @@ class PlugWindow:
 
     def get_scatter_plot(self):
         data_series = QtCharts.QtCharts.QScatterSeries()
-        data_series.setMarkerSize(15.0)
+        data_series.setMarkerSize(10.0)
         data = app_utils.get_date_power(self.name)
         for row in data:
             time = QtCore.QDateTime()
