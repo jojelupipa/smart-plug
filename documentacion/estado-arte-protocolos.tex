@@ -45,8 +45,8 @@
 \section{Internet de las Cosas}\label{internet-de-las-cosas}
 
 Uno de los términos más recurrentes en el ámbito de la tecnología a día
-de hoy es el de ``Internet de las Cosas'' (en inglés, IoT, Internet of
-Things). Pero, puesto que el término puede resultar ambiguo, es
+de hoy es el de \emph{``Internet de las Cosas''} (en inglés, IoT, \emph{Internet of
+Things}). Pero, puesto que el término puede resultar ambiguo, es
 conveniente dar una definición sobre esta que permita esclarecer el
 concepto.
 
@@ -59,7 +59,7 @@ hasta incluso podemos abstraer a personas o animales (una persona con un
 marcapasos, un ave con un geolocalizador u otros ejemplos\cite{iotagendawebsiteWhatInternetThings}). A estas ``cosas'' se les añade el término
 ``Internet'', que no es más que una abstracción de la conectividad que
 permite dotar a las cosas de comunicación con el exterior, extendiendo
-sus funcionalidades sin privarlas de su funcionamiento original. Esta es
+sus funcionalidades sin privarlas de su cometido original. Esta es
 su principal característica, la posibilidad de comunicación con otras
 ``cosas'' mediante internet y sin la necesidad de intervención humana.
 
@@ -88,13 +88,13 @@ ejemplo\cite{vongsingthongs.;smanchats.IoTExamplesSuranaree}:
 \begin{itemize}
 \item
   Logística: Rastreo de envíos por correo o estado del stock en
-  almacenes, automatizando lectura de los items mediante wifi.
+  almacenes automatizando lectura de los items mediante wifi.
 \item
   Transporte: Gestión automática de rutas por GPS; captura y procesado
   de infracciones de velocidad.
 \item
   Salud: Desde una pulsera que capte tus hábitos de vida hasta
-  monitorización de personas ancianas que viven solas.
+  la supervisión de personas ancianas que viven solas.
 \item
   Monitorización: Desde instalación de sensores en un bosque para medir
   datos de contaminación hasta medir en un hogar el consumo de un
@@ -172,7 +172,7 @@ clasificación (no excluyente) de:
 \begin{itemize}
 \item
   Enchufes inteligentes (E.I.) por control remoto (wifi, bluetooth,
-  infrarojos u otros tipos de señales electromagnéticas)
+  infrarrojos u otros tipos de señales electromagnéticas)
 \item
   E.I. programables
 \item
@@ -231,15 +231,25 @@ Algunos campos de comparación entre arquitecturas de IoT son\cite{atzoriInterne
   actuadores).
 \end{itemize}
 
-\subsection{Modelos de interconexión de
-red}\label{modelos-de-interconexiuxf3n-de-red}
+Estas arquitecturas coinciden en la definición de capas de manera
+análoga a TCP/IP u
+OSI\cite{weyrichReferenceArchitecturesInternet2016}, pero adaptándolas
+a las necesidades del IoT. Esta conjunto de capas se pueden
+generalizar en 3 capas principales: Percepción, asociada a los
+dispositivos físicos, consistente en sensores; capa de red, encargada
+de transmitir información entre sensores y sistemas procesadores
+finales; y capa de aplicación, para el proceso final de la
+información\cite{khanFutureInternetInternet2012}.
+
+Para conocer cómo se produce la comunicación a distintos niveles de la
+arquitectura es necesario analizar sus protocolos.
 
 \subsection{Protocolos}\label{subsec:protocolos}
 
 Dos ordenadores convencionales necesitan una pila de protocolos para que
 puedan transmitir información a las distintas capas que conforman la
 comunicación. Ante los requisitos que surgían con los dispositivos IoT,
-surgían también protocolos que daban respuesta a estos. Estableciéndose
+emergían también protocolos que daban respuesta a estos. Estableciéndose
 así una pila de protocolos de red especializada para IoT.
 
 A fin de permitir estas comunicaciones de manera liviana es necesario
@@ -254,8 +264,8 @@ para dar soporte a la escalabilidad.
 
 En la \textbf{capa de aplicación} existen alternativas para
 proporcionar un transporte de datos con baja sobrecarga en la
-comunicación. Algunas de estas opciones
-son\cite{al-fuqahaInternetThingsSurvey2015}: \textbf{CoAP}
+comunicación. Algunas de estas opciones\cite{al-fuqahaInternetThingsSurvey2015}
+son: \textbf{CoAP}
 (Constrained Application Protocol), usado como un protocolo web basado
 en \textit{REST}\cite{WebServicesArchitecture}; \textbf{XMPP}
 (Extensible Messaging and Presence Protocol), usado especialmente en
@@ -266,6 +276,31 @@ embebidos con aplicaciones y middleware.
 
 Esta es una de las decisiones que más afecta al diseño, pues el resto
 del diseño de la arquitectura se ve afectado por ello.
+
+\subsection{Modelos de interconexión de
+red}\label{modelos-de-interconexiuxf3n-de-red}
+
+De acuerdo a la topología de la red, el modo en el que se conectan los
+dispositivos involucrados, reconocen ocho tipos básicos de modelos de
+interconexión\cite{bicsiNetworkDesignBasics2002}.
+
+\begin{itemize}
+\item{Punto a punto: Dos dispositivos finales se perciben directamente
+  conectados entre sí.}
+\item{Cadena Margarita: Se conecta en serie cada computador al
+  siguiente, los mensajes se retransmiten durante toda la cadena.}
+\item{Bus: Todos los dispositivos están conectados entre sí usando
+  un cable central. Esto implica una difusión de cada mensaje a
+  todos los nodos. Es más usual en redes locales.}
+\item{Estrella: Un conjunto de nodos periféricos se conectan con un
+  nodo central que actúa como servidor.}
+\item{Anillo: Similar a una topología de “cadena margarita” donde
+  existe un único bucle y la comunicación se realiza en un único
+  sentido.}
+\item{Malla: Los dispositivos se conectan de muchos a muchos, puede
+  ser completamente conectada o parcialmente conectada si todos los
+  nodos se encuentran conectados entre sí o no.}
+\end{itemize}
 
 \newpage
 
