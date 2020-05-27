@@ -366,6 +366,39 @@ El broker que usamos en nuestro diseño es
 \textbf{Mosquitto}\cite{EclipseMosquitto}. Agente que implementa MQTT
 v3.1.1, la versión de MQTT usada en este proyecto.
 
+\subsection{Enchufe}\label{subsec:enchufe}
+
+De los tres subsistemas que componen el diseño de nuestro sistema
+podríamos atribuirle el concepto de Enchufe Inteligente a este. Pues
+es el encargado de realizar las lecturas del consumo energético del
+dispositivo conectado, transmitir estas lecturas al servidor central y
+manejar mediante el uso de un relé la alimentación del dispositivo
+conectado para manipular su uso.
+
+El enchufe está compuesto por cuatro elementos principales:
+
+\begin{itemize}
+\item{\textbf{Módulo Wifi:} Microcontrolador
+  ESP32\cite{ESP32SeriesDatasheet}. Núcleo del enchufe, encargado de
+  ejecutar el programa principal que gestiona el manejo de lecturas y
+  del relé. Dispone de funcionalidad WiFi para conectarse vía MQTT al
+  servidor.}
+
+\item{\textbf{Relé:} Tongling jqc-3ff-s-z, un relé de 5V que controla
+  el paso de corriente por el dispositivo conectado cual interruptor y
+  que es gestionado por el módulo ESP32.}
+
+\item{\textbf{Sensor de corriente:} Sensor YHDC SCT013\-000 CT. Un
+  sensor de corriente no invasivo (basta con colocarlo alrededor del
+  cable a medir) que actúa como un transformador de
+  corriente. Transforma la corriente de entrada entre 0 y 100 Amperios
+  en otra de salida entre 0 y 50 miliAmperios que, mediante el uso de
+  una resistencia de carga que convierta a un voltaje adecuedo, el
+  módulo es capaz de procesar.}
+
+\item{\textbf{Fuente de alimentación:} Una fuente de alimentación de
+  5 Voltios y 2 Amperios para alimentar el módulo wifi.}
+\end{itemize}
 \newpage
 
 \bibliographystyle{unsrt}
