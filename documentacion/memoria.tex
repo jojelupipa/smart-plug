@@ -22,6 +22,10 @@
 
 \usepackage{amsmath}
 
+% Incluir gráficos
+\usepackage{graphicx}
+\usepackage{float}
+
 % Sangrado y espacio entre párrafos
 \setlength{\parskip}{1em}
 \setlength{\parindent}{1.5em}
@@ -215,8 +219,7 @@ definir y a trabajar mejor con los requisitos de estos nuevos sistemas.
 
 Existen diferentes arquitecturas en la actualidad, que difieren en el
 enfoque que le dan a ciertos campos. Dos de los más conocidos son IoT-A
-e IIRA. Siendo el primero el más extendido desde su lanzamiento en 2012
-\cite{weyrichReferenceArchitecturesInternet2016}.
+e IIRA. Siendo el primero el más extendido desde su lanzamiento en 2012\cite{weyrichReferenceArchitecturesInternet2016}.
 
 Algunos campos de comparación entre arquitecturas de IoT son\cite{atzoriInternetThingsSurvey2010}:
 
@@ -360,11 +363,13 @@ los interesados, teniendo en cuenta además comprobaciones de seguridad
 mediante autorización de publicadores y
 suscriptores.\cite{al-fuqahaInternetThingsSurvey2015,hunkelerMQTTSPublishSubscribe2008}
 
-\subsubsection{Mosquitto}
+\subsubsection{Mosquitto}\label{subsubsec:broker_mosquitto}
 
 El broker que usamos en nuestro diseño es
 \textbf{Mosquitto}\cite{EclipseMosquitto}. Agente que implementa MQTT
 v3.1.1, la versión de MQTT usada en este proyecto.
+
+\newpage
 
 \subsection{Enchufe}\label{subsec:enchufe}
 
@@ -393,7 +398,7 @@ El enchufe está compuesto por cuatro elementos principales:
   cable a medir) que actúa como un transformador de
   corriente. Transforma la corriente de entrada entre 0 y 100 Amperios
   en otra de salida entre 0 y 50 miliAmperios que, mediante el uso de
-  una resistencia de carga que convierta a un voltaje adecuedo, el
+  una resistencia de carga que convierta a un voltaje adecuado, el
   módulo es capaz de procesar.
 
   Los cables convencionales suelen estar compuestos por dos cables
@@ -405,6 +410,130 @@ El enchufe está compuesto por cuatro elementos principales:
 \item{\textbf{Fuente de alimentación:} Una fuente de alimentación de
   5 Voltios y 2 Amperios para alimentar el módulo wifi.}
 \end{itemize}
+
+\subsubsection{Diseño y construcción del enchufe}
+
+En un proceso de prueba y selección de componentes descartamos otras
+opciones en el diseño de nuestro enchufe:
+
+El microcontrolador Arduino UNO carecía de funcionalidad WiFi y el uso de módulos
+externos requería alimentación extra. El ESP32 usado sí que disponía
+de WiFi y era compatible con el resto de componentes.
+
+El sensor de corriente no invasivo fue seleccionado tras descartar el
+sensor ACS712\cite{ACS712DatasheetPDF}. Este introducía ruido en las
+lecturas, mostrando diferencias entre el consumo esperado y el
+registrado para componentes eléctricas que conciéramos de antemano.
+
+Tras esta selección procedimos a probar y, posteriormente, soldar el
+enchufe a una placa base. A fin de minimizar el número de cruces entre
+cables elaboramos el diseño visible en
+la Figura~\ref{fig:placa-sup-arriba-abajo}. Este representa la vista superior de
+la placa y cómo se disponen los cables y las componentes tanto por
+encima como por debajo de la misma. Es conveniente indicar que cada
+rectángulo representa un conjunto de pines que irán conectados a
+alguna componente del sistema: El rectángulo GND, 5V a la fuente de
+alimentación, el par In, Out la entrada y salida del sensor de
+corriente y la tres-upla Vcc, Gnd y S a la alimentación y control del
+relé.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.8\textwidth]{img/dibujo_placa_vista_superior_arriba_y_abajo.png}
+  \caption{Vista superior de la placa, en negro componentes y cableado
+  de la parte superior. En azul, de la parte inferior.}\label{fig:placa-sup-arriba-abajo}
+\end{figure}
+
+Hacemos uso del condensador $C1 = 10\mu F$ para absorber los
+posibles picos de tensión, reducir el ruido en las lecturas y
+garantizar calidad en las mismas.
+
+Las resistencias $R1=R2=2k\Omega$ cumplen la función de un divisor de
+tensión y resistencia de carga para garantizar el voltaje operativo
+del sensor de corriente.
+
+Para complementar esta visualización añadimos la parte inferior de la
+vista trasera de la placa (volteo vertical), Figura~\ref{fig:placa-tras-inf},
+y la parte inferior de la vista superior, Figura~\ref{fig:placa-sup-inf}.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.8\textwidth]{img/dibujo_placa_vista_inferior_parte_trasera.png}
+  \caption{Vista trasera de la placa, parte inferior.}\label{fig:placa-tras-inf}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.8\textwidth]{img/dibujo_placa_vista_superior_parte_trasera.png}
+  \caption{Vista trasera de la placa, parte inferior.}\label{fig:placa-sup-inf}
+\end{figure}
+
+Los adaptadores de los pines sobre los que se colocarán las otras
+componentes queda dispuestos de acuerdo a la
+Figura~\ref{fig:visual-adaptadores}. Hacemos uso de estos adaptadores
+a fin de simplificar las tareas de mantenimiento y sustitución de
+componentes en caso de avería.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.8\textwidth]{img/placa_con_adaptadores_pines.jpg}
+  \caption{Adaptadores de las componentes.}\label{fig:visual-adaptadores}
+\end{figure}
+
+El circuito resultante es el que podemos observar en las
+figuras~\ref{fig:soldado_superior} y~\ref{fig:soldado_inferior}.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.8\textwidth]{img/soldadura_superior.jpg}
+  \caption{Soldadura parte inferior placa.}\label{fig:soldado_superior}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.8\textwidth]{img/soldadura_inferior.jpg}
+  \caption{Soldadura parte superior placa.}\label{fig:soldado_inferior}
+\end{figure}
+
+\newpage
+
+\subsection{Servidor central}\label{subsec:servidor-central}
+
+En el centro de nuestra arquitectura de estrella se encuentra el
+servidor central. Una Raspberry Pi 3 Modelo B que actúa como broker
+entre los publicadores y suscriptores de MQTT, como mencionábamos
+en~\ref{subsubsec:broker_mosquitto}, haciendo uso de Mosquitto para
+gestionar las publicaciones y suscripciones a los temas.
+
+Es necesario que el broker esté activo y sea persistente a reinicios y
+caídas. Por esto hay que configurarlo para que Mosquitto se lance al
+inicio.
+
+En el servidor central se encuentra situada una base de datos donde se
+recogen las lecturas de los enchufes. De este modo se puede gestionar
+la difusión de esta información a los clientes sin comprometer la
+consistencia de los datos.
+
+\subsubsection{Configuración de red}
+
+Para favorecer la localización del servidor central en la red es
+conveniente asignarle bien una IP estática (configurar alguna interfaz
+o modificar la configuración del cliente dhcp en Raspberry Pi) o bien
+utilizar algún DNS y que se actualice la dirección de la misma.
+
+En este caso hemos asignado una IP estática al servidor dentro de
+nuestra red y hemos solicitado un nombre de dominio que actualiza la
+IP pública del router de acceso al servidor, configurando además un
+reenvío de puertos para que un cliente pueda conectarse desde el exterior.
+
+\newpage
+
+\subsection{Aplicación de escritorio}
+
+\newpage
+
+\section{Pruebas y test}
+
 \newpage
 
 \bibliographystyle{unsrt}
