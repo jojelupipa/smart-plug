@@ -30,7 +30,17 @@
 \setlength{\parskip}{1em}
 \setlength{\parindent}{1.5em}
 
+\title{Diseño y construcción de un sistema para medir el consumo
+  energético en el hogar}
+\author{Jesús Sánchez de Lechina Tejada}
 \begin{document}
+\maketitle
+\thispagestyle{empty}
+\begin{center}
+  \includegraphics[scale=0.4]{img/logo_ugr.pdf}
+\end{center}
+\newpage
+
 
 \tableofcontents
 
@@ -49,7 +59,7 @@
 \section{Internet de las Cosas}\label{internet-de-las-cosas}
 
 Uno de los términos más recurrentes en el ámbito de la tecnología a día
-de hoy es el de \emph{``Internet de las Cosas''} (en inglés, IoT, \emph{Internet of
+de hoy es el de \textit{``Internet de las Cosas''} (en inglés, IoT, \textit{Internet of
 Things}). Pero, puesto que el término puede resultar ambiguo, es
 conveniente dar una definición sobre esta que permita esclarecer el
 concepto.
@@ -408,7 +418,9 @@ El enchufe está compuesto por cuatro elementos principales:
   consumiendo o generando electricidad.}
 
 \item{\textbf{Fuente de alimentación:} Una fuente de alimentación de
-  5 Voltios y 2 Amperios para alimentar el módulo wifi.}
+  5 Voltios y 2 Amperios para alimentar el módulo wifi. Un conversor
+  que toma la corriente alterna que llega al enchufe y alimenta al
+  resto del circuito.}
 \end{itemize}
 
 \subsubsection{Diseño y construcción del enchufe}
@@ -486,14 +498,58 @@ figuras~\ref{fig:soldado_superior} y~\ref{fig:soldado_inferior}.
 \begin{figure}
   \centering
   \includegraphics[width=0.8\textwidth]{img/soldadura_superior.jpg}
-  \caption{Soldadura parte inferior placa.}\label{fig:soldado_superior}
+  \caption{Soldadura parte superior placa.}\label{fig:soldado_superior}
 \end{figure}
 
 \begin{figure}
   \centering
   \includegraphics[width=0.8\textwidth]{img/soldadura_inferior.jpg}
-  \caption{Soldadura parte superior placa.}\label{fig:soldado_inferior}
+  \caption{Soldadura parte inferior placa.}\label{fig:soldado_inferior}
 \end{figure}
+
+Tanto la alimentación como la medición de la corriente se produce a
+partir de un cable que hemos seccionado y empalmado a las componentes
+de nuestro circuito para que el usuario final pueda limitarse a,
+simplemente, conectar el dispositivo a medir a nuestro enchufe
+inteligente y este a una fuente de alimentación.
+
+\subsubsection{Programa del microcontrolador}
+
+Toda la lógica del enchufe, tanto lecturas como comunicaciones, son
+gestionadas por el programa del microcontrolador. Y resulta conveniente
+comprender qué elementos hacen posible esta mecánica.
+
+Por un lado se encuentra la configuración de la comunicación. Es
+necesario conectarse a la red sobre la que se trabajará para poder
+comunicarse con el broker, así que se requiere conocer SSID y
+contraseña de la red en la que se trabajará. Del mismo modo la
+información del broker, temas MQTT de suscripción o publicación y
+credenciales tendrán que ser conocidos. Dada la licencia permisiva de
+este proyecto y la flexibilidad de programación del módulo ESP32 no
+habrá problema en entregar el sistema al usuario final en el estado de
+uso inmediato o de permitir que este lo adapte a sus necesidades.
+
+El enchufe publica el cálculo del consumo en un tema asociado a su
+identificador en el broker y se suscribe a los canales de control para
+gestionar su funcionamiento (actualmente manejo del relé, pero puede
+extenderse a configuración de otros parámetros).
+
+A fin de procesar la información del consumo cada enchufe está
+identificado unívocamente por un identificador que puede ser adaptado
+\textit{ad-hoc} (se podrían utilizar otros idendificadores como el del propio
+microcontrolador, pero se deja a opción del usuario para permitir
+flexibilidad en la nomenclatura).
+
+En el apartado de las lecturas es destacable cómo se han realizado los
+cálculos. Con las mediciones del sensor de corriente calculamos la
+media cuadrática. La corriente alterna fluctúa en torno a valores
+positivos y negativos siguiendo un comportamiento sinusoidal. La
+manera de calcular la intensidad que realmente está pasando es
+obteniendo el valor eficaz. Este valor eficaz para la intensidad se
+corresponde con el valor cuadrático
+medio\cite{alcaldesanmiguelElectrotecniaInstalacionesElectricas2014}.
+
+
 
 \newpage
 
