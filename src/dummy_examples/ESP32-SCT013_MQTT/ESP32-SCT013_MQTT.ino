@@ -18,6 +18,7 @@
 EnergyMonitor emon1;
 
 const int N_MEASURES = 6;
+const int IRMS_SAMPLES = 1000;
 // Array to store the readings to print a mean
 short measurements[N_MEASURES];
 short measureIndex = 0;
@@ -32,7 +33,7 @@ const char* mqttPassword = "esp32tfg";
 String clientId = "ESP32Client";
 String publishTopic = "/data/consumption/";
 String receiverTopic = "/control/toggle/";
-String randomID;
+String plugID = "enchufe001";
 
 //Wifi Settings
 const char* ssid = "replaceWithSSID";
@@ -43,10 +44,8 @@ String relayStatus = "HIGH";
 
 
 void setup() {
-  randomSeed(analogRead(A0)); // Use an unused pin to initialize seed
-  randomID = String(random(LONG_MAX));
-  publishTopic = publishTopic + randomID;
-  receiverTopic = receiverTopic + randomID;
+  publishTopic = publishTopic + plugID;
+  receiverTopic = receiverTopic + plugID;
   pinMode(32, OUTPUT);
   digitalWrite(32, HIGH);
   relayStatus = "HIGH";
@@ -58,7 +57,7 @@ void setup() {
   setMQTTConnection();
   while (!Serial);
 
-  // Initialize emon library (30 = calibration number)
+  // Initialize emon library (0.07 = calibration number)
   emon1.current(ADC_INPUT, 0.07);
 
 
@@ -71,7 +70,7 @@ void loop() {
 
   // If it's been longer then 1000ms since we took a measurement, take one now!
   if(currentMillis - lastMeasurement > 1000){
-    double amps = emon1.calcIrms(1000); // Calculate Irms only
+    double amps = emon1.calcIrms(IRMS_SAMPLES); // Calculate Irms only
     double watt = amps * HOME_VOLTAGE;
 
     lastMeasurement = millis();
@@ -129,14 +128,14 @@ void setMQTTConnection() {
     if (client.connect(clientId.c_str(),mqttUser,mqttPassword)) {
       Serial.println("connected");
       String connectionMessage = String("/connections/presence/ESP32/");
-      connectionMessage += randomID;
+      connectionMessage += plugID;
       client.publish( connectionMessage.c_str(), "connected");
       if(client.subscribe(receiverTopic.c_str()) && client.subscribe("/control/toggle/general")) {
         String suscribedMessage = String("esp32 subbed to /control/toggle/general and ");
         suscribedMessage += receiverTopic;
         client.publish("/connections/presence/ESP32/", suscribedMessage.c_str());
       }
-      } else {
+    } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());
       Serial.println(" try again in 1 second");
@@ -178,7 +177,7 @@ void callback(char* topic, byte *payload, unsigned int length) {
   Serial.write(payload, length);
   Serial.println();
 
-  // Smart Switch is only subbed to /control/toggle/<randomID> and /control/toggle/general (general toggle) so it will change relay's status when any message is received
+  // Smart Switch is only subbed to /control/toggle/<plugID> and /control/toggle/general (general toggle) so it will change relay's status when any message is received
   toggleRelay();
 }
 
