@@ -14,9 +14,10 @@
 \usepackage{hyperref}
 \hypersetup{
     colorlinks=true,
-    linkcolor=[rgb]{0 0 0},
+    linkcolor=[rgb]{0.149 0 0.3216},
     filecolor=magenta,      
     urlcolor=blue,
+    citecolor=blue,
 }
 \urlstyle{same}
 
@@ -30,29 +31,22 @@
 \setlength{\parskip}{1em}
 \setlength{\parindent}{1.5em}
 
-\title{Diseño y construcción de un sistema para medir el consumo
-  energético en el hogar}
+% Portada
+\title{Diseño y construcción de un sistema para adquisición y análisis
+  del consumo energético en el hogar}
 \author{Jesús Sánchez de Lechina Tejada}
+\date{Junio 2020}
+
 \begin{document}
 \maketitle
 \thispagestyle{empty}
 \begin{center}
   \includegraphics[scale=0.4]{img/logo_ugr.pdf}
 \end{center}
+
 \newpage
 
-
 \tableofcontents
-
-\hypersetup{
-    colorlinks=true,
-    linkcolor=[rgb]{0.149 0 0.3216},
-    filecolor=magenta,      
-    urlcolor=blue,
-    citecolor=blue,
-}
-\urlstyle{same}
-
 
 \newpage
 
@@ -70,7 +64,9 @@ parte de ``las cosas'', que abarca desde los dispositivos y
 electrodomésticos que podemos encontrar en nuestro día a día; que tienen
 una funcionalidad en sí misma (p.ej. una televisión, un frigorífico),
 hasta incluso podemos abstraer a personas o animales (una persona con un
-marcapasos, un ave con un geolocalizador u otros ejemplos\cite{iotagendawebsiteWhatInternetThings}). A estas ``cosas'' se les añade el término
+marcapasos, un ave con un geolocalizador u otros
+ejemplos\cite{iotagendawebsiteWhatInternetThings}). A estas ``cosas''
+se les añade el término
 ``Internet'', que no es más que una abstracción de la conectividad que
 permite dotar a las cosas de comunicación con el exterior, extendiendo
 sus funcionalidades sin privarlas de su cometido original. Esta es
@@ -92,12 +88,12 @@ concretamente un dispositivo IoT y qué lo diferencia de otras ``cosas''.
 Un dispositivo IoT es una entidad (objeto, o incluso animales o
 personas) que tiene una funcionalidad en sí misma y a la cual dotamos de
 una capacidad de conexión y telecomunicación. De modo que sea capaz de,
-por sí misma, comunicarse con otros dispositivos en su entorno con esta
-misma capacidad.
+por sí misma, comunicarse con otros dispositivos en su entorno dotados
+de esta misma capacidad.
 
 Los beneficios que podemos obtener de este paradigma se pueden aplicar
-en muchas áreas, por
-ejemplo\cite{vongsingthongs.;smanchats.IoTExamplesSuranaree}:
+en muchas áreas\cite{vongsingthongs.;smanchats.IoTExamplesSuranaree},
+por ejemplo:
 
 \begin{itemize}
 \item
@@ -116,8 +112,9 @@ ejemplo\cite{vongsingthongs.;smanchats.IoTExamplesSuranaree}:
 \end{itemize}
 
 Este último ejemplo es justo la motivación de nuestro trabajo. Podemos
-usar esta tecnología para crear un enchufe inteligente que nos permita
-saber nuestro consumo eléctrico y controlar el uso que le damos.
+usar esta tecnología para crear un \textbf{enchufe inteligente} que
+nos permita saber nuestro consumo eléctrico y controlar el uso que le
+damos.
 
 \newpage
 
@@ -136,8 +133,8 @@ Un enchufe en el ámbito doméstico permite la conexión entre un
 dispositivo electrónico y la corriente alterna para la alimentación de
 este dispositivo.
 
-Estos trabajan con unos voltajes entre 100V y 240V
-\cite{iecIECWorldPlugs}. El tipo de enchufe, voltaje y frecuencia
+Estos trabajan con unos voltajes entre 100V y
+240V.\cite{iecIECWorldPlugs} El tipo de enchufe, voltaje y frecuencia
 usados en una región geográfica vienen determinados por un convenio
 fijado por el gobierno de esa zona.
 
@@ -174,7 +171,7 @@ a anomalías como el consumo en horarios no esperados o picos de voltaje.
 
 Manejar tus dispositivos de manera remota, programar el horario de
 funcionamiento de estos o la manera en la que funcionan son solo algunas
-de las opciones. Destacando la posibilidad de integración con otros
+de las opciones; destacando la posibilidad de integración con otros
 dispositivos que proporcionen una mayor accesibilidad (p.ej. la interfaz
 de voz de un asistente de móvil).
 
@@ -186,17 +183,18 @@ clasificación (no excluyente) de:
 \begin{itemize}
 \item
   Enchufes inteligentes (E.I.) por control remoto (wifi, bluetooth,
-  infrarrojos u otros tipos de señales electromagnéticas)
+  infrarrojos u otros tipos de señales electromagnéticas).
 \item
-  E.I. programables
+  E.I. programables, aquellos que permiten la progamación temporal de eventos.
 \item
-  E.I. de regletas
+  E.I. de regletas, aquellos que permiten tratar con varios
+  dispositivos simultáneamente en un mismo enchufe.
 \end{itemize}
 
 \subsection{Modelos en el mercado}\label{modelos-en-el-mercado}
 
 La comercialización de este producto está muy extendida, proporcionando
-una amplia oferta de productos los cuales podemos recogerlos bajo la
+una amplia oferta de productos los cuales podemos recoger bajo la
 clasificación previa:
 
 \begin{itemize}
@@ -204,9 +202,9 @@ clasificación previa:
   Programación temporal: Permiten la ejecución de tareas a horas
   concretas del día. Por ejemplo:
   \href{https://web.archive.org/web/20191111121153/https://www.amazon.es/Garza-Power-Temporizador-anal\%C3\%B3gico-programaci\%C3\%B3n/dp/B00URUVDW2/}{Garza
-  400603, analógico},
+  400603 (analógico)},
   \href{https://web.archive.org/web/20191112121450/https://www.amazon.es/dp/B00ZJ1LQDK}{Orbegozo
-  PG 20, digital}
+  PG 20 (digital)}
 \item
   Control remoto: Se pueden controlar con mando a distancia, a través de
   una app o con control por voz. Por ejemplo:
@@ -229,7 +227,8 @@ definir y a trabajar mejor con los requisitos de estos nuevos sistemas.
 
 Existen diferentes arquitecturas en la actualidad, que difieren en el
 enfoque que le dan a ciertos campos. Dos de los más conocidos son IoT-A
-e IIRA. Siendo el primero el más extendido desde su lanzamiento en 2012\cite{weyrichReferenceArchitecturesInternet2016}.
+e IIRA. Siendo el primero el más extendido desde su lanzamiento en
+2012.\cite{weyrichReferenceArchitecturesInternet2016}
 
 Algunos campos de comparación entre arquitecturas de IoT son\cite{atzoriInternetThingsSurvey2010}:
 
@@ -247,8 +246,9 @@ Algunos campos de comparación entre arquitecturas de IoT son\cite{atzoriInterne
 Estas arquitecturas coinciden en la definición de capas de manera
 análoga a TCP/IP u
 OSI\cite{weyrichReferenceArchitecturesInternet2016}, pero adaptándolas
-a las necesidades del IoT. Esta conjunto de capas se pueden
-generalizar en 3 capas principales: Percepción, asociada a los
+a las necesidades del IoT. Ante las diversas clasificaciones en
+múltiples capas se puede encontrar una similitud entre ellas que
+permite generalizar en 3 capas principales: Percepción, asociada a los
 dispositivos físicos, consistente en sensores; capa de red, encargada
 de transmitir información entre sensores y sistemas procesadores
 finales; y capa de aplicación, para el proceso final de la
@@ -270,10 +270,10 @@ alguna tecnología a \textbf{nivel físico} que pueda solventar el
 problema de la saturación del espectro de frecuencias, algunas
 propuestas se basan en aprovechar el ruido blanco (frecuencias no
 usadas en el espectro de radio)\cite{tempertonTVWhiteSpace2015}.  En
-la \textbf{capa de enlace} se encuentra 6LoWPAN
-\cite{schumacherIPv6LowPowerWireless} para conectar los dispositivos a
-una red IP, dicha red ha de ser del tipo IPv6 (\textbf{capa de red})
-para dar soporte a la escalabilidad.
+la \textbf{capa de enlace} se encuentra
+6LoWPAN\cite{schumacherIPv6LowPowerWireless} para conectar los
+dispositivos a una red IP, dicha red ha de ser del tipo IPv6
+(\textbf{capa de red}) para dar soporte a la escalabilidad.
 
 En la \textbf{capa de aplicación} existen alternativas para
 proporcionar un transporte de datos con baja sobrecarga en la
@@ -295,7 +295,7 @@ red}\label{modelos-de-interconexiuxf3n-de-red}
 
 De acuerdo a la topología de la red, el modo en el que se conectan los
 dispositivos involucrados, reconocen ocho tipos básicos de modelos de
-interconexión\cite{bicsiNetworkDesignBasics2002}.
+interconexión.\cite{bicsiNetworkDesignBasics2002}
 
 \begin{itemize}
 \item{Punto a punto: Dos dispositivos finales se perciben directamente
@@ -315,6 +315,15 @@ interconexión\cite{bicsiNetworkDesignBasics2002}.
   nodos se encuentran conectados entre sí o no.}
 \end{itemize}
 
+El modelo de interconexión de red de un sistema no es inherente al
+Internet de las Cosas, es una cuestión recurrente en cualquier diseño
+de una red de telecomunicación y cuya decisión se realiza en tanto a
+las necesidades del sistema. Por ejemplo un modelo de malla consta de
+una mayor complejidad en las comunicaciones que una de anillo, pero
+este puede dificultar las comunicaciones entre distintos nodos. Una
+arquitectura de estrella simplifica este problema pero se vuelve
+dependiente de que el nodo central se encuentre siempre operativo.
+
 \newpage
 
 \section{Diseño de la arquitectura de nuestro
@@ -322,12 +331,19 @@ sistema}\label{diseuxf1o-de-la-arquitectura-de-nuestro-sistema}
 
 \subsection{Descripción general}\label{descripciuxf3n-general}
 
-Nuestro enchufe inteligente recogerá mediante el sensor SCT013 la
+Nuestro enchufe inteligente recoge mediante el sensor SCT013 la
 corriente que requiere el dispositivo conectado. En el módulo ESP32 se
 realiza el cálculo del consumo en Vatios y se emite hacia nuestro
-servidor, una Raspberry Pi con Mosquitto, y MQTT, de donde se podrá
-transmitir a una aplicación externa para supervisar el consumo y
+servidor, una Raspberry Pi con Mosquitto y MQTT, de donde se podrá
+consultar desde una aplicación externa para supervisar el consumo y
 manipular el enchufe.
+
+Como mencionábamos en la sección~\ref{arquitecturas-iot},
+habitualmente las arquitecturas IoT se engloban bajo tres capas. La de
+percepción, nuestro sensor que recoge los datos; la capa de red, el
+uso de MQTT para gestionar las comunicaciones de manera liviana (sobre
+TCP/IP) y la capa de aplicación, que permite el procesamiento,
+manipulación y visualización por parte del usuario del sistema.
 
 \subsection{Modelo de red usado}\label{modelo-de-red-usado}
 
@@ -337,6 +353,9 @@ gestionar tanto la información de los sensores como de otorgar la
 visualización y manejo sobre los enchufes a los usuarios. En los
 extremos se encontrarían tanto los enchufes inteligentes como los
 usuarios desde sus aplicaciones.
+
+Se ha decidido utilizar este modelo tanto por su versatilidad como
+simplicidad para conectar los nodos periféricos al servidor central.
 
 \subsection{Protocolo MQTT}\label{protocolo-mqtt}
 
@@ -354,8 +373,9 @@ El tipo de comunicación en este protocolo es indicado en cada mensaje
 en la cabecera del paquete. Proporciona mensajes para conexión
 (CONNECT), desconexión (DISCONNECT), publicar en un tema (PUBLISH),
 suscribirse/desuscribirse a un tema (SUBSCRIBE/UNSUSCRIBE) y otros
-mensajes de control correspondientes a una respuesta ACK (pues está
-basado en TCP)\cite{banksMQTTVersionEdited}.
+mensajes de control correspondientes a una respuesta ACK a los
+anteriormente mencionados (pues está basado en
+TCP).\cite{banksMQTTVersionEdited}
 
 \subsection{Diseño broker, publishers,
 suscribers}\label{diseuxf1o-broker-publishers-suscribers}
@@ -373,11 +393,22 @@ los interesados, teniendo en cuenta además comprobaciones de seguridad
 mediante autorización de publicadores y
 suscriptores.\cite{al-fuqahaInternetThingsSurvey2015,hunkelerMQTTSPublishSubscribe2008}
 
+Por este motivo, en este patrón pueden existir múltiples publicadores
+y suscriptores mientras que es la entidad que actúa como broker la que
+gestiona el flujo de comunicación.
+
 \subsubsection{Mosquitto}\label{subsubsec:broker_mosquitto}
 
 El broker que usamos en nuestro diseño es
 \textbf{Mosquitto}\cite{EclipseMosquitto}. Agente que implementa MQTT
 v3.1.1, la versión de MQTT usada en este proyecto.
+
+Uno de los requisitos más habituales en sistemas IoT es la integración
+de manera ubicua de las componentes en el entorno del usuario. A
+menudo esto implica utilizar sistemas compactos o embebidos con pocos
+recursos. En nuestro caso utilizamos un servidor con recursos
+limitados, una Raspberry Pi, por lo que resulta beneficioso utilizar
+un broker tan ligero que no suponga una sobrecarga en el sistema.
 
 \newpage
 
@@ -388,7 +419,7 @@ podríamos atribuirle el concepto de Enchufe Inteligente a este. Pues
 es el encargado de realizar las lecturas del consumo energético del
 dispositivo conectado, transmitir estas lecturas al servidor central y
 manejar mediante el uso de un relé la alimentación del dispositivo
-conectado para manipular su uso.
+conectado para regular su uso.
 
 El enchufe está compuesto por cuatro elementos principales:
 
@@ -403,19 +434,19 @@ El enchufe está compuesto por cuatro elementos principales:
   el paso de corriente por el dispositivo conectado cual interruptor y
   que es gestionado por el módulo ESP32.}
 
-\item{\textbf{Sensor de corriente:} Sensor YHDC SCT013\-000 CT. Un
-  sensor de corriente no invasivo (basta con colocarlo alrededor del
-  cable a medir) que actúa como un transformador de
-  corriente. Transforma la corriente de entrada entre 0 y 100 Amperios
-  en otra de salida entre 0 y 50 miliAmperios que, mediante el uso de
-  una resistencia de carga que convierta a un voltaje adecuado, el
-  módulo es capaz de procesar.
+\item{\textbf{Sensor de corriente:} Sensor YHDC SCT013\-000
+  CT\cite{SCT013000DatasheetPDF}. Un sensor de corriente no invasivo
+  (basta con colocarlo alrededor del cable a medir) que actúa como un
+  transformador de corriente. Transforma la corriente de entrada entre
+  0 y 100 Amperios en otra de salida entre 0 y 50 miliAmperios que,
+  mediante el uso de una resistencia de carga que convierta a un
+  voltaje adecuado, el módulo es capaz de procesar.
 
   Los cables convencionales suelen estar compuestos por dos cables
-  internos que conducen la corriente. Para evitar que se anulen las
-  medidas el sensor se coloca en torno a uno de ellos. Además, es
-  posible medir el sentido de la corriente para determinar si se está
-  consumiendo o generando electricidad.}
+  internos que conducen la corriente en sentido opuesto. Para evitar
+  que se anulen las medidas el sensor se coloca en torno a uno de
+  ellos. Además, es posible medir el sentido de la corriente para
+  determinar si se está consumiendo o generando electricidad.}
 
 \item{\textbf{Fuente de alimentación:} Una fuente de alimentación de
   5 Voltios y 2 Amperios para alimentar el módulo wifi. Un conversor
@@ -430,7 +461,8 @@ opciones en el diseño de nuestro enchufe:
 
 El microcontrolador Arduino UNO carecía de funcionalidad WiFi y el uso de módulos
 externos requería alimentación extra. El ESP32 usado sí que disponía
-de WiFi y era compatible con el resto de componentes.
+de WiFi y era compatible con el resto de componentes, reduciendo así
+la complejidad de este subsistema mientras otorgaba la misma funcionalidad.
 
 El sensor de corriente no invasivo fue seleccionado tras descartar el
 sensor ACS712\cite{ACS712DatasheetPDF}. Este introducía ruido en las
@@ -453,7 +485,7 @@ relé.
   \centering
   \includegraphics[width=0.8\textwidth]{img/dibujo_placa_vista_superior_arriba_y_abajo.png}
   \caption{Vista superior de la placa, en negro componentes y cableado
-  de la parte superior. En azul, de la parte inferior.}\label{fig:placa-sup-arriba-abajo}
+  de la parte anterior. En azul, de la parte posterior.}\label{fig:placa-sup-arriba-abajo}
 \end{figure}
 
 Hacemos uso del condensador $C1 = 10\mu F$ para absorber los
@@ -461,23 +493,23 @@ posibles picos de tensión, reducir el ruido en las lecturas y
 garantizar calidad en las mismas.
 
 Las resistencias $R1=R2=2k\Omega$ cumplen la función de un divisor de
-tensión y resistencia de carga para garantizar el voltaje operativo
-del sensor de corriente.
+tensión y de resistencia de carga para garantizar el voltaje operativo
+del sensor de corriente y otorgar el rango de voltaje de salida esperado.
 
-Para complementar esta visualización añadimos la parte inferior de la
+Para complementar esta visualización añadimos la parte posterior (trasera) de la
 vista trasera de la placa (volteo vertical), Figura~\ref{fig:placa-tras-inf},
-y la parte inferior de la vista superior, Figura~\ref{fig:placa-sup-inf}.
+y la parte posterior de la vista superior, Figura~\ref{fig:placa-sup-inf}.
 
 \begin{figure}
   \centering
   \includegraphics[width=0.8\textwidth]{img/dibujo_placa_vista_inferior_parte_trasera.png}
-  \caption{Vista trasera de la placa, parte inferior.}\label{fig:placa-tras-inf}
+  \caption{Vista trasera de la placa, parte posterior.}\label{fig:placa-tras-inf}
 \end{figure}
 
 \begin{figure}
   \centering
   \includegraphics[width=0.8\textwidth]{img/dibujo_placa_vista_superior_parte_trasera.png}
-  \caption{Vista trasera de la placa, parte inferior.}\label{fig:placa-sup-inf}
+  \caption{Vista trasera de la placa, parte posterior.}\label{fig:placa-sup-inf}
 \end{figure}
 
 Los adaptadores de los pines sobre los que se colocarán las otras
@@ -509,9 +541,13 @@ figuras~\ref{fig:soldado_superior} y~\ref{fig:soldado_inferior}.
 
 Tanto la alimentación como la medición de la corriente se produce a
 partir de un cable que hemos seccionado y empalmado a las componentes
-de nuestro circuito para que el usuario final pueda limitarse a,
-simplemente, conectar el dispositivo a medir a nuestro enchufe
-inteligente y este a una fuente de alimentación.
+de nuestro circuito.
+
+Para abstraer el diseño del enchufe y simplificar el uso del mismo al
+usuario lo hemos acoplado en una caja de conexión. De este modo el
+usuario final puede limitarse a, simplemente, conectar el dispositivo
+a medir a nuestro enchufe inteligente y este a una fuente de
+alimentación. Una conexión macho y una hembra.
 
 \subsubsection{Programa del microcontrolador}
 
@@ -541,7 +577,17 @@ microcontrolador, pero se deja a opción del usuario para permitir
 flexibilidad en la nomenclatura).
 
 En el apartado de las lecturas es destacable cómo se han realizado los
-cálculos. Con las mediciones del sensor de corriente calculamos la
+cálculos.
+
+En términos de electromagnetismo se define la potencia W (la variable
+que utilizamos para medir el consumo) como:
+
+\[W = V\cdot A\]
+
+Siendo V el voltaje del circuito, 230 voltios en España, y A la
+intensidad de la corriente que mide el sensor.
+
+Con las mediciones del sensor de corriente calculamos la
 media cuadrática. La corriente alterna fluctúa en torno a valores
 positivos y negativos siguiendo un comportamiento sinusoidal. La
 manera de calcular la intensidad que realmente está pasando es
@@ -549,7 +595,10 @@ obteniendo el valor eficaz. Este valor eficaz para la intensidad se
 corresponde con el valor cuadrático
 medio\cite{alcaldesanmiguelElectrotecniaInstalacionesElectricas2014}.
 
-
+Para reducir hipotéticos picos de ruido se realiza un muestreo un
+intervalo de tiempo fijo y se calcula el consumo durante ese período
+de tiempo \textit{W} tomando como valor de la corriente \textit{A} la
+media de las medidas en el muestreo.
 
 \newpage
 
@@ -562,13 +611,16 @@ en~\ref{subsubsec:broker_mosquitto}, haciendo uso de Mosquitto para
 gestionar las publicaciones y suscripciones a los temas.
 
 Es necesario que el broker esté activo y sea persistente a reinicios y
-caídas. Por esto hay que configurarlo para que Mosquitto se lance al
-inicio.
+caídas. Por esto hay que configurarlo para que Mosquitto se lance en
+cada inicio del servidor.
 
-En el servidor central se encuentra situada una base de datos donde se
-recogen las lecturas de los enchufes. De este modo se puede gestionar
-la difusión de esta información a los clientes sin comprometer la
-consistencia de los datos.
+Este servidor supone el nodo central de nuestra topología de red, es
+por tanto el más determinante para el correcto funcionamiento del
+sistema. Si quisiéramos mejorar la disponibilidad del sistema para
+poder seguir utilizándolo aunque este servidor esté caído puede ser
+una mejora utilizar un segundo servidor similar a este al cual el
+resto de nodos tomaran por broker en caso de que el primero estuviera
+inaccesible.
 
 \subsubsection{Configuración de red}
 
@@ -582,13 +634,71 @@ nuestra red y hemos solicitado un nombre de dominio que actualiza la
 IP pública del router de acceso al servidor, configurando además un
 reenvío de puertos para que un cliente pueda conectarse desde el exterior.
 
+\subsubsection{Gestión de la base de datos}
+
+En el servidor central se encuentra situada una base de datos donde se
+recogen las lecturas de los enchufes. De este modo se puede gestionar
+la difusión de esta información a los clientes sin comprometer la
+consistencia de los datos.
+
+La estructura de esta base de datos consiste en una tabla que
+incorpora para cada medición una fila con los datos del enchufe en el
+que se ha leído, el consumo y la hora registrada según el servidor.
+
 \newpage
 
 \subsection{Aplicación de escritorio}
 
+El último eslabón de nuestro sistema es el cliente de escritorio. Una
+aplicación que permite al usuario final interactuar con el resto del
+sistema.
+
+Este cliente es en realidad una interfaz que otorga control sobre las
+funcionalidades del sistema: Por un lado, acceder a la información
+sobre el consumo eléctrico y visualizarla y, por otro lado, manipular
+los enchufes inteligentes para controlar su estado.
+
+En la topología de nuestro diseño este tipo de nodo forma parte de los
+nodos periféricos que se conectan al servidor central. Pero a
+diferencia de los otros nodos periféricos, los enchufes inteligentes,
+estos permiten una mayor flexibilidad y libertad de configuración. Por
+esto se le permite al cliente modificar desde la aplicación los
+parámetros de conexión.
+
+Una vez conectado al servidor la aplicación puede obtener la
+información del mismo. Consultar su base de datos para obtener el
+consumo realizado y poder visualizarlo de manera sencilla o consultar
+los registros en mayor profundidad.
+
+Al obtener esta información también estamos consultando qué enchufes
+se encuentran conectados y qué identificadores tienen. Lo cual nos
+permitirá controlar el estado de los enchufes (modificando el estado
+de su relé) publicando en el broker en los temas de control a los que
+los enchufes estarán suscritos.
+
 \newpage
 
 \section{Pruebas y test}
+
+\textit{Aquí se adjuntarán algunas imágenes y resultados de los tests
+  que se realicen sobre distintas partes del sistema}
+
+\newpage
+
+\section{Conclusión}
+
+Ya sabíamos que el Internet de las Cosas traía consigo innumerables
+posibilidades para extender la concepción habitual de los objetos que
+nos rodean en nuestro día a día.
+
+Con este proyecto se pretende hacer ver que el Internet de las Cosas
+no es un concepto distante y que no existe una barrera económica o
+tecnológica que solo permita a grandes empresas trabajar con él. El
+Internet de las Cosas es accesible para cualquiera tanto para su uso
+como para su desarrollo. Apto para cualquiera sin requerir grandes
+gastos económicos y con unas opciones de diseño y desarrollo que
+existen y que cada vez están mejor documentadas.
+
 
 \newpage
 
