@@ -72,3 +72,13 @@ def get_date_power(name="general"):
         formated_result.append([datetime.datetime.strptime(row[0], "%a %b %d %H:%M:%S %Y"),
                                float(row[1])])
     return formated_result
+
+def get_plug_list():
+    conn = sqlite3.connect(CONSUMPTION_PATH)
+    cursor = conn.execute("SELECT DISTINCT name FROM power_consumption_data")
+    result = cursor.fetchall()
+    list = []
+    for row in result:
+        plug_name = row[0].replace("/data/consumption/","")
+        list.append(plug_name)
+    return list
