@@ -57,14 +57,12 @@ class PlugWindow:
         log.exec()
 
     def get_scatter_plot(self):
-        data_series = QtCharts.QtCharts.QScatterSeries()
-        data_series.setMarkerSize(10.0)
+        data_series = QtCharts.QtCharts.QLineSeries()
         data = app_utils.get_date_power(self.name)
         for row in data:
             time = QtCore.QDateTime()
             time.setSecsSinceEpoch(row[0].timestamp())
             data_series.append(time.toMSecsSinceEpoch(), row[1])
-            #data_series.append(row[0].timestamp(), row[1])
 
         chart = QtCharts.QtCharts.QChart()
         chart.setAnimationOptions(QtCharts.QtCharts.QChart.AllAnimations)
