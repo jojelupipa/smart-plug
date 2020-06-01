@@ -1,7 +1,7 @@
 #include "WiFi.h"
 #include <HTTPClient.h>  // For http petitions
 
-const char* ssid = "replaceWithSeed";
+const char* ssid = "replaceWithSSID";
 const char* password =  "replaceWithPassword";
 
 void setup() {
