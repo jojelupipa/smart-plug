@@ -12,5 +12,13 @@ Desde este momento puedes lanzar el servidor a mano con:
 
 ```python3 app.py [-H HOST_IP] [-p PORT]```
 
-Aunque es recomendable lanzarlo al iniciar el sistema, por ejemplo usando un script en `/init.d/` en Raspbian.
+Aunque es recomendable lanzarlo al iniciar el sistema, por ejemplo usando un script en `/init.d/` o utilizar crontab en Raspbian.
+
+Ejemplo:
+
+Añadir a `crontab -e` la línea:
+
+```
+@reboot  cd /home/pi/smart-plug && python3 /home/pi/smart-plug/app.py >> /home/pi/smart-plug/log.txt 2>&1 &
+```
 

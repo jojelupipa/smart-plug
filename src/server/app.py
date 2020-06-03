@@ -12,7 +12,7 @@ from flask import Flask, request, jsonify
 
 HOST_IP = "192.168.1.10"
 PORT = 8080
-CONSUMPTION_PATH = "db/power_consumption.db"
+CONSUMPTION_PATH = "../db/power_consumption.db"
 app = Flask(__name__)
 
 

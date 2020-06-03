@@ -5,9 +5,9 @@
 # ------------------------------------------
 
 import paho.mqtt.client as mqtt
-import sys
 import sqlite3
 import datetime
+import time
 
 db_dir = "../db/"
 db_power_name = db_dir + "power_consumption.db"
@@ -72,15 +72,18 @@ class Subscriber():
         global VERBOSE
         VERBOSE = verbose
         self.mqttc = mqtt.Client()
-        try:
-            set_up_connection(self.mqttc, settings["user"],
-                              settings["password"],
-                              settings["broker_ip"],
-                              settings["port"])
-        except ConnectionRefusedError as e:
-            print(e)
-            print("Couldn't connect to broker")
-            sys.exit()
+        connected = False
+        while not connected:
+            try:
+                set_up_connection(self.mqttc, settings["user"],
+                                  settings["password"],
+                                  settings["broker_ip"],
+                                  settings["port"])
+                connected = True
+            except ConnectionRefusedError as e:
+                print(e)
+                print("Broker not ready yet.")
+                time.sleep(5)
 
     def subscribe(self):
         self.mqttc.loop_forever()
