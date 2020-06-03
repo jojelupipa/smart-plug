@@ -32,19 +32,9 @@ class PlugListWindow:
 
     def update_status(self):
         status_label = self.window.findChild(QtWidgets.QLabel, "status_label")
-        settings = app_utils.get_settings()
-        pub_command = "python paho_publish.py"
-        pub_command += " -u " + settings["user"]
-        pub_command += " -P " + settings["password"]
-        pub_command += " -b " + settings["broker_ip"]
-        pub_command += " -p " + settings["port"]
-        pub_command += " -t /control/connection/"
-        pub_command += " -m 'client_connection_check'"
-        try:
-            subprocess.check_output(pub_command,
-                                    shell=True)
+        if app_utils.check_connection():
             status_label.setText("Conectado al broker")
-        except subprocess.CalledProcessError:
+        else:
             status_label.setText("Error de conexión\nRevise ajustes y servidor")
             self.button_general.setEnabled(False)
 
@@ -64,4 +54,5 @@ class PlugListWindow:
         window_general_plug = PlugWindow.PlugWindow(name=name)
         window_general_plug.window.setModal(True)
         window_general_plug.window.exec()
+        self.update_status()
 

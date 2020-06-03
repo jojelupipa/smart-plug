@@ -1,11 +1,13 @@
 # This Python file uses the following encoding: utf-8
-
 # ------------------------------------------
 # --- Author: Jesús Sánchez de Lechina Tejada
 # ------------------------------------------
 
+
 import sqlite3
-import datetime
+from dateutil import parser
+import subprocess
+import requests
 from PySide2 import QtCore, QtWidgets
 from PySide2.QtUiTools import QUiLoader
 
@@ -15,7 +17,6 @@ CONSUMPTION_PATH = "../db/power_consumption.db"
 
 
 ''' Main functions'''
-
 
 def load_scene(file_name):
     loader = QUiLoader()
@@ -43,42 +44,41 @@ def set_settings(settings):
 
 
 def getFromDB(name="general", last=False):
-    conn = sqlite3.connect(CONSUMPTION_PATH)
-    column = "*"
-    if last:
-        column = "power_consumption"
-    if name == "general":
-        cursor = conn.execute("SELECT " + column + " FROM power_consumption_data")
-    else:
-        cursor = conn.execute("SELECT " + column + " FROM power_consumption_data WHERE name = '/data/consumption/" + name + "'")
-    result = ""
-    if not last:
-        for row in cursor:
-            result += str(row) + "\n"
-    else:
-        result = cursor.fetchall()[-1][0]
+    settings = get_settings()
+    url = "http://" + settings["broker_ip"] + ":8080/consumption"
+    params = {"name": name, "last": last}
+    result = requests.get(url=url, params=params).json()
     return result
 
 
 def get_date_power(name="general"):
-    where_clause = ""
-    if name != "general":
-        where_clause = " WHERE name = '/data/consumption/" + name + "'"
-    conn = sqlite3.connect(CONSUMPTION_PATH)
-    cursor = conn.execute("SELECT date_time, power_consumption FROM power_consumption_data" + where_clause)
-    result = cursor.fetchall()
+    settings = get_settings()
+    url = "http://" + settings["broker_ip"] + ":8080/date_power"
+    params = {"name": name}
+    result = requests.get(url=url, params=params).json()
     formated_result = []
     for row in result:
-        formated_result.append([datetime.datetime.strptime(row[0], "%a %b %d %H:%M:%S %Y"),
-                               float(row[1])])
+        formated_result.append([parser.parse(row[0]), float(row[1])])
     return formated_result
 
 def get_plug_list():
-    conn = sqlite3.connect(CONSUMPTION_PATH)
-    cursor = conn.execute("SELECT DISTINCT name FROM power_consumption_data")
-    result = cursor.fetchall()
-    list = []
-    for row in result:
-        plug_name = row[0].replace("/data/consumption/","")
-        list.append(plug_name)
+    settings = get_settings()
+    url = "http://" + settings["broker_ip"] + ":8080/plugs"
+    list = requests.get(url).json()
     return list
+
+def check_connection():
+    settings = get_settings()
+    pub_command = "python paho_publish.py"
+    pub_command += " -u " + settings["user"]
+    pub_command += " -P " + settings["password"]
+    pub_command += " -b " + settings["broker_ip"]
+    pub_command += " -p " + settings["port"]
+    pub_command += " -t /control/connection/"
+    pub_command += " -m 'client_connection_check'"
+    try:
+        subprocess.check_output(pub_command,
+                                shell=True)
+        return True
+    except subprocess.CalledProcessError:
+        return False

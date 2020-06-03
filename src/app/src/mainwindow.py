@@ -9,8 +9,6 @@ import subprocess
 import app_utils
 import SettingsWindows
 import PlugListWindow
-import paho_sub
-import threading
 from PySide2 import QtWidgets
 
 
@@ -29,8 +27,7 @@ class HomeWindow(QtWidgets.QMainWindow):
         self.button_settings = self.window.central_widget.findChild(QtWidgets.QPushButton, "settings_button")
         self.button_settings.clicked.connect(self.open_settings_widget)
         self.status_text = self.window.central_widget.findChild(QtWidgets.QLabel, "status_text")
-        self.subscriber = None
-        self.subscribe_to_broker()
+        self.check_connection()
         self.resize(self.window.size())
         self.setCentralWidget(self.window)
 
@@ -40,7 +37,7 @@ class HomeWindow(QtWidgets.QMainWindow):
         self.hide()
         window_plug_list.window.exec()
         self.show()
-        self.resubscribe()
+        self.check_connection()
 
     def open_settings_widget(self):
         window_settings = SettingsWindows.SettingsWindows()
@@ -48,14 +45,7 @@ class HomeWindow(QtWidgets.QMainWindow):
         self.hide()
         window_settings.window.exec()
         self.show()
-        self.resubscribe()
-
-    def resubscribe(self):
-        try:
-           self.subscriber.disconnect()
-        except AttributeError:
-            print("Reintentando suscripción al broker", flush=True)
-        self.subscribe_to_broker()
+        self.check_connection()
 
     def create_database(self, force=False):
         command = "python create_database.py"
@@ -63,22 +53,12 @@ class HomeWindow(QtWidgets.QMainWindow):
             command += " -f"
         subprocess.call(command, shell=True)
 
-    def closeEvent(self, event):
-        try:
-            self.subscriber.disconnect()
-        except AttributeError:
-            print("No se pudo conectar al servidor con la última configuración guardada")
-        event.accept()
-
-    def subscribe_to_broker(self):
-        try:
-            self.subscriber = paho_sub.Subscriber()
-            thr = threading.Thread(target=self.subscriber.subscribe, args=(), kwargs={})
-            thr.start()
-            self.status_text.setText("Conectado")
-        except (AttributeError, subprocess.CalledProcessError, OSError) as e:
-            self.status_text.setText("Desconectado, revise conexión con el servidor")
-            print(e)
+    def check_connection(self):
+        status_label = self.window.findChild(QtWidgets.QLabel, "status_text")
+        if app_utils.check_connection():
+            status_label.setText("Conectado al broker")
+        else:
+            status_label.setText("Error de conexión\nRevise ajustes y servidor")
 
 
 if __name__ == "__main__":

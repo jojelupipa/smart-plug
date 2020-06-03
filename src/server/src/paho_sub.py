@@ -56,7 +56,7 @@ def save_to_db(topic, message):
     command = """
     INSERT INTO power_consumption_data (name, date_time, power_consumption)
     VALUES ('%s', '%s', '%s');
-    """ % (topic, datetime.datetime.now().strftime("%a %b %d %H:%M:%S %Y"),
+    """ % (topic, datetime.datetime.now(),
            message)
     if VERBOSE:
         print("Executing: " + command + " into " + db_power_name + " database")

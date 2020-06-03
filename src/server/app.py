@@ -34,10 +34,10 @@ def get_from_db():
             result += str(row) + "\n"
     else:
         result = cursor.fetchall()[-1][0]
-    return result
+    return jsonify(result)
 
 
-@app.route("/last_consumption", methods=["GET"])
+@app.route("/date_power", methods=["GET"])
 def get_date_power():
     name = request.args.get("name")
     where_clause = ""
