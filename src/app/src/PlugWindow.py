@@ -12,31 +12,43 @@ MQTT_Topic_Toggle = "/control/toggle/"
 
 
 class PlugWindow:
+    """ Clase para gestionar la ventana de un enchufe """
     plug = app_utils.UI_PATH + "./plug.ui"
 
     def __init__(self, name="general"):
         self.name = name
         self.window = app_utils.load_scene(self.plug)
         self.window.setWindowTitle(self.name)
-        self.button_back = self.window.findChild(QtWidgets.QPushButton,
-                                            "back_plug_button")
+        self.button_back = self.window.findChild(
+            QtWidgets.QPushButton, "back_plug_button"
+        )
         self.button_back.clicked.connect(self.back)
-        self.button_toggle = self.window.findChild(QtWidgets.QPushButton,
-                                              "toggle")
+        self.button_toggle = self.window.findChild(
+            QtWidgets.QPushButton, "toggle"
+        )
         self.button_toggle.clicked.connect(self.toggle)
-        self.button_log = self.window.findChild(QtWidgets.QPushButton,
-                                                "history_button")
+        self.button_log = self.window.findChild(
+            QtWidgets.QPushButton, "history_button"
+        )
         self.button_log.clicked.connect(self.show_log)
-        self.current_consumption = self.window.findChild(QtWidgets.QLabel, "updated_consumption_label")
-        self.current_consumption.setText(app_utils.getFromDB(name=self.name, last=True) + " W")
+        self.current_consumption = self.window.findChild(
+            QtWidgets.QLabel, "updated_consumption_label"
+        )
+        self.current_consumption.setText(
+            app_utils.getFromDB(name=self.name, last=True) + " W"
+        )
         self.scatter_plot = self.get_scatter_plot()
-        self.scatter_plot_layout = self.window.findChild(QtWidgets.QLayout, "scatter_plot_layout")
+        self.scatter_plot_layout = self.window.findChild(
+            QtWidgets.QLayout, "scatter_plot_layout"
+        )
         self.scatter_plot_layout.addWidget(self.scatter_plot)
 
     def back(self):
+        """ Cierra esta ventana """
         self.window.close()
 
     def toggle(self):
+        """ Envía al broker la señal de toggle """
         pub_command = "python paho_publish.py"
         settings = app_utils.get_settings()
         pub_command += " -u " + settings["user"]
@@ -49,6 +61,7 @@ class PlugWindow:
                         shell=True)
 
     def show_log(self):
+        """ Crea una ventana para mostrar el consumo en texto plano """
         print("Showing log", flush=True)
         log = app_utils.load_scene(app_utils.UI_PATH + "consumption_log.ui")
         log.setModal(True)
@@ -57,6 +70,7 @@ class PlugWindow:
         log.exec()
 
     def get_scatter_plot(self):
+        """ Dibuja en la ventana el consumo del enchufe """
         data_series = QtCharts.QtCharts.QLineSeries()
         data = app_utils.get_date_power(self.name)
         for row in data:
@@ -76,7 +90,9 @@ class PlugWindow:
         chart_viewer = QtCharts.QtCharts.QChartView(chart)
         chart_viewer.setRenderHint(QtGui.QPainter.Antialiasing)
         chart_viewer.chart().addSeries(data_series)
-        chart_viewer.chart().addAxis(axis_x, QtCore.Qt.AlignmentFlag.AlignBottom)
+        chart_viewer.chart().addAxis(
+            axis_x, QtCore.Qt.AlignmentFlag.AlignBottom
+        )
         chart_viewer.chart().addAxis(axis_y, QtCore.Qt.AlignmentFlag.AlignLeft)
         data_series.attachAxis(axis_x)
         data_series.attachAxis(axis_y)

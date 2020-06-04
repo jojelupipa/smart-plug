@@ -1,3 +1,8 @@
+/** 
+ * Programa del microcontrolador, encargado de obtener y transmitir el
+ * consumo eléctrico a un broker mediante un cliente MQTT
+ */
+
 #include <Arduino.h>
 #include "EmonLib.h"
 #include "WiFi.h"
@@ -42,7 +47,13 @@ WiFiClient wifiClient;
 PubSubClient client(wifiClient);
 String relayStatus = "HIGH";
 
-
+/**
+ * Configura la conexión WiFi y la comunicación con el
+ * broker. Configura parámetros del microcontrolador. Calibra el
+ * sensor de corriente.
+ * 
+ * Se ejecuta al inicio.
+ */
 void setup() {
   publishTopic = publishTopic + plugID;
   receiverTopic = receiverTopic + plugID;
@@ -64,11 +75,14 @@ void setup() {
   timeFinishedSetup = millis();
 }
 
-
+/**
+ * Cálculo de las lecturas cada cierto intervalo de tiempo y se
+ * reenvía  al broker la media de las N_MEASURES últimas lecturas
+ */
 void loop() {
   unsigned long currentMillis = millis();
 
-  // If it's been longer then 1000ms since we took a measurement, take one now!
+  // Take a measure every 1000ms
   if(currentMillis - lastMeasurement > 1000){
     double amps = emon1.calcIrms(IRMS_SAMPLES); // Calculate Irms only
     double watt = amps * HOME_VOLTAGE;
@@ -76,7 +90,7 @@ void loop() {
     lastMeasurement = millis();
 
     // Readings are unstable the first 5 seconds when the device powers on
-      // so ignore them until they stabilise.
+		// so ignore them until they stabilise.
     if(millis() - timeFinishedSetup >= 10000){
       measurements[measureIndex] = watt;
       measureIndex++;
@@ -101,7 +115,9 @@ void loop() {
 // Start up wifi, if it's first time, must use Wifi.begin(ssid, password) to connect. You can use Wifi.begin() afterwards
 // to avoid exposing your password in your code
 
-
+/**
+ * Establece conexión WiFi
+ */
 void setWifi() {
   WiFi.begin(); // Asume you already connected it, otherwise you'll have to use Wifi.begin(<ssid>,<password>)
   //Wifi.begin(ssid, password)
@@ -117,7 +133,9 @@ void setWifi() {
 
 // Connects to the server
 
-
+/**
+ * Establece conexión con el broker
+ */
 void setMQTTConnection() {
   // Set the server IP and port
   client.setServer(mqttServer, mqttPort);
@@ -148,7 +166,9 @@ void setMQTTConnection() {
 
 // Tries to connect and send the read data
 
-
+/**
+ * Envía la información del consumo al broker
+ */
 void sendInfo(float consumption) {
   if(!client.connected()){
     setMQTTConnection();
@@ -168,7 +188,10 @@ void sendInfo(float consumption) {
 
 // Callback function to manage the relay's status
 
-
+/**
+ * Callback para gestionar el comportamiento del relé cuando recibe un
+ * mensaje
+ */
 void callback(char* topic, byte *payload, unsigned int length) {
   Serial.println("-------new message from broker-----");
   Serial.print("channel:");
@@ -184,7 +207,9 @@ void callback(char* topic, byte *payload, unsigned int length) {
 
 // Toggles the Relay status
 
-
+/**
+ * Cambia el estado del relé
+ */
 void toggleRelay() {
   if (relayStatus == "HIGH"){
       digitalWrite(32, LOW);

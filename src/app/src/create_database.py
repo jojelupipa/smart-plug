@@ -1,3 +1,13 @@
+# This Python file uses the following encoding: utf-8
+# ------------------------------------------
+# --- Author: Jesús Sánchez de Lechina Tejada
+# ------------------------------------------
+
+"""
+Script para la creación de una base de datos para almacenar la
+configuración de conexión al broker.
+"""
+
 import os
 import sqlite3
 import optparse
@@ -33,26 +43,15 @@ where not exists(select 1 from settings where parameter = 'port');
 
 
 def set_parser_options(parser):
+    """ Crea opciones del parser """
     parser.add_option('-f', '--force', action="store_true", dest="force",
                       help="Overwrite any existing database", default=False)
 
 
-def create_power_database(force=False):
-    creation_command = ""
-    if force:
-        creation_command += "drop table if exists power_consumption_data;"
-    creation_command += db_power_schema
-    # Create database (connection)
-    connection = sqlite3.connect(db_power_name)
-    # Create
-    cursor = connection.cursor()
-    cursor.executescript(creation_command)
-    # Close database
-    cursor.close()
-    connection.close()
-
-
 def create_settings_database(force=False):
+    """ Crea la base de datos de la configuración de conexión.
+        force: booleano para sobreescribir una base de datos si existía
+    """
     creation_command = ""
     if force:
         creation_command += "drop table if exists settings;"
@@ -75,8 +74,6 @@ if __name__ == "__main__":
     if not os.path.isdir(db_dir):
         os.makedirs(db_dir)
     if options.force:
-        create_power_database(force=True)
         create_settings_database(force=True)
     else:
-        create_power_database()
         create_settings_database()

@@ -9,6 +9,10 @@ import sqlite3
 import datetime
 import time
 
+"""
+Script para suscribirse al broker y almacenar las mediciones en una
+base de datos
+"""
 db_dir = "../db/"
 db_power_name = db_dir + "power_consumption.db"
 
@@ -25,10 +29,12 @@ settings = {"user": "esp32",
 # Define Callbacks
 
 def on_connect(client, userdata, rc):
+    """ Callback conexión del cliente paho """
     print("Suscribed to /data/consumption/# ", flush=True)
 
 
 def on_disconnect(client, userdata, rc):
+    """ Callback desconexión del cliente paho """
     if rc != 0:
         print("Unable to disconnect")
     elif VERBOSE:
@@ -36,6 +42,9 @@ def on_disconnect(client, userdata, rc):
 
 
 def on_message(mosq, obj, msg):
+    """ Callback recepción de mensaje del cliente paho.
+        Almacena mensaje en la base de datos
+    """
     if VERBOSE:
         print("Topic: %s Message: %s" % (msg.topic, msg.payload))
     save_to_db(msg.topic, msg.payload.decode("utf-8"))
@@ -44,6 +53,9 @@ def on_message(mosq, obj, msg):
 # Set up connection
 
 def set_up_connection(mqttc, user, password, broker_ip, port):
+    """ Establece la conexión con los parámetros del servidor y se suscribe al
+        tema indicado
+    """
     mqttc.username_pw_set(user, password)
     mqttc.on_connect = on_connect
     mqttc.on_disconnect = on_disconnect
@@ -53,6 +65,7 @@ def set_up_connection(mqttc, user, password, broker_ip, port):
 
 
 def save_to_db(topic, message):
+    """ Guarda la lectura en una base de datos sqlite """
     command = """
     INSERT INTO power_consumption_data (name, date_time, power_consumption)
     VALUES ('%s', '%s', '%s');
@@ -67,7 +80,7 @@ def save_to_db(topic, message):
 
 
 class Subscriber():
-
+    """ Clase para controlar un objeto suscriptor usando un cliente MQTT """
     def __init__(self, verbose=False):
         global VERBOSE
         VERBOSE = verbose
@@ -86,11 +99,13 @@ class Subscriber():
                 time.sleep(5)
 
     def subscribe(self):
+        """ Se suscribe al tema hasta que reciba un mensaje de desconexión """
         self.mqttc.loop_forever()
         if VERBOSE:
             print("Ended loop", flush=True)
 
     def disconnect(self):
+        """ Desconectarse del broker """
         self.mqttc.disconnect()
 
 

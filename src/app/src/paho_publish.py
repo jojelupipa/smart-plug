@@ -2,6 +2,8 @@
 # --- Author: Jesús Sánchez de Lechina Tejada
 # ------------------------------------------
 
+""" Script para publicar mensajes en un topic a un broker """
+
 import paho.mqtt.client as mqtt
 import optparse
 
@@ -18,6 +20,7 @@ VERBOSE = False
 # Define Callbacks
 
 def on_connect(client, userdata, rc):
+    """ Callback conexión del cliente paho """
     if rc != 0:
         print("Unable to connect to MQTT Broker...")
     else:
@@ -25,10 +28,12 @@ def on_connect(client, userdata, rc):
 
 
 def on_publish(client, userdata, mid):
+    """ Callback publicación de un mensaje al broker """
     print("Publishing to topic " + mid)
 
 
 def on_disconnect(client, userdata, rc):
+    """ Callback desconexión del cliente paho """
     if rc != 0:
         print("Unable to disconnect")
     elif VERBOSE:
@@ -38,6 +43,7 @@ def on_disconnect(client, userdata, rc):
 # Set up connection
 
 def set_up_connection(mqttc, user, password, broker_ip, port):
+    """ Establece la conexión con los parámetros del servidor """
     mqttc.username_pw_set(user, password)
     mqttc.on_connect = on_connect
     mqttc.on_disconnect = on_disconnect
@@ -49,6 +55,7 @@ def set_up_connection(mqttc, user, password, broker_ip, port):
 
 
 def publish_to_topic(mqttc, topic, message):
+    """ Gestiona la publicación en un topic de mqtt """
     mqttc.publish(topic, message)
     if VERBOSE:
         print("Published: \"" + str(message) + "\" " +
@@ -59,6 +66,7 @@ def publish_to_topic(mqttc, topic, message):
 
 
 def set_parser_options(parser):
+    """ Añade parámetros al script """
     parser.add_option("-u", "--user", action="store", dest="user",
                       help="Set MQTT user", default=MQTT_User)
     parser.add_option("-P", "--password", action="store", dest="password",
