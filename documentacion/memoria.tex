@@ -10,7 +10,7 @@
 \geometry{left=3cm,right=3cm,top=3cm,bottom=3cm,headheight=1cm,headsep=0.5cm}
 \usepackage{enumitem}
 
-\usepackage{xcolor}
+\usepackage[table,xcdraw]{xcolor}
 \usepackage{hyperref}
 \hypersetup{
     colorlinks=true,
@@ -26,6 +26,8 @@
 % Incluir gráficos
 \usepackage{graphicx}
 \usepackage{float}
+
+
 
 % Sangrado y espacio entre párrafos
 \setlength{\parskip}{1em}
@@ -48,9 +50,82 @@
 
 \tableofcontents
 
+\fontsize{10}{12}\selectfont
+
 \newpage
 
-\section{Internet de las Cosas}\label{internet-de-las-cosas}
+\section{Introducción}\label{intro}
+
+En este documento se recoge una descripción de mi Proyecto de Fin de
+Grado, cuyo tema es: \textbf{Diseño y construcción de un sistema para
+  adquisición y análisis del consumo energético en el hogar.}
+
+Para ayudar en esta descripción se han reunido un conjunto de
+explicaciones de los procesos empleados, análisis y el desarrollo de
+algunas cuestiones relativas al proyecto.
+
+\subsection{Objetivos y motivación}\label{objetivos}
+
+El \textbf{principal objetivo} de este proyecto es doble. Del mismo modo que se
+pretende diseñar un sistema para medir y controlar el consumo
+energético en un hogar en sus distintos aspectos (hardware, software y
+telecomunicaciones necesarias) se busca también hacer ver al lector
+que, con ligeros conocimientos informáticos y la disposición por
+aprender adecuada, cualquier individuo puede llegar a replicar el
+sistema o incluso construir uno nuevo basándose en la descripción que
+se ofrece de este diseño.
+
+Analizando los requisitos del objetivo principal encontramos una
+necesidad adicional: El sistema a diseñar requerirá una
+infraestructura y un paradigma sobre el cual planificar el
+proyecto. Esto resulta ser en realidad una ocasión para estudiar el
+Internet de las Cosas, explicando qué es y cómo en la actualidad ya es
+una solución a este problema aunque nos pueda parecer algo distante.
+
+\subsection{Estructura del proyecto}\label{estructura}
+
+\begin{itemize}
+\item{\textbf{Sección~\ref{intro}:} Presentación del proyecto,
+  motivación y objetivos del mismo. Se ofrece una introducción al
+  Internet de las Cosas en el Apartado~\ref{internet-de-las-cosas},
+  así se podrá conocer qué significa este término y qué aplicaciones
+  tiene actualmente. Al final de esta sección se motiva el núcleo de
+  este proyecto mediante una de las aplicaciones del Internet de las
+  Cosas, la monitorización.}
+  
+\item{\textbf{Sección~\ref{revision-enchufes}:} En la
+  Sección~\ref{revision-enchufes} se enlaza el concepto de Internet de
+  las Cosas con la aplicación a los enchufes inteligentes, haciendo
+  una pequeña taxonomía sobre estos y presentando algunos modelos
+  actuales en el mercado con sus funcionalidades.}
+  
+\item{\textbf{Sección~\ref{arquitecturas-iot}:} Previo a la
+  descripción en detalle de la construcción del sistema es conveniente
+  conocer el contexto de las arquitecturas en el paradigma del
+  Internet de las Cosas. Este es el objetivo que trata la
+  Sección~\ref{arquitecturas-iot}, dar una visión sobre cómo se puede
+  dar soporte al problema que nos planteamos.}
+  
+\item{\textbf{Sección~\ref{diseno-arquitectura}:} Una vez explicada
+  esta arquitectura pasamos a, en la
+  Sección~\ref{diseno-arquitectura}, profundizar en el uso que le
+  hemos dado a distintos elementos de este paradigma para adecuarlos a
+  las necesidades de nuestro proyecto. Explicando cómo hemos diseñado
+  y construido todo el sistema desde la elección de sensores y
+  microcontrolador hasta el diseño de la aplicación del usuario final
+  pasando por toda la lógica de comunicación y almacenamiento de
+  información intermedia.}
+
+\item{\textbf{Sección~\ref{tests}:} Recopilación de pruebas que se han usado
+  para verificar el correcto desarrollo del proyecto.}
+
+\item{\textbf{Sección~\ref{conclusion}:} Reflexiones, conclusiones y
+  análisis sobre el conjunto del resultado del proyecto.}
+\end{itemize}
+
+\newpage
+
+\subsection{Internet de las Cosas}\label{internet-de-las-cosas}
 
 Uno de los términos más recurrentes en el ámbito de la tecnología a día
 de hoy es el de \textit{``Internet de las Cosas''} (en inglés, IoT, \textit{Internet of
@@ -59,10 +134,10 @@ conveniente dar una definición sobre esta que permita esclarecer el
 concepto.
 
 El Internet de las Cosas es un paradigma tecnológico en sí mismo.
-Desglosándo el concepto vemos que reúne dos tecnologías. Por un lado
+Desglosando el concepto vemos que reúne dos tecnologías. Por un lado
 parte de ``las cosas'', que abarca desde los dispositivos y
 electrodomésticos que podemos encontrar en nuestro día a día; que tienen
-una funcionalidad en sí misma (p.ej. una televisión, un frigorífico),
+una funcionalidad en sí misma (p.ej.\ una televisión, un frigorífico),
 hasta incluso podemos abstraer a personas o animales (una persona con un
 marcapasos, un ave con un geolocalizador u otros
 ejemplos\cite{iotagendawebsiteWhatInternetThings}). A estas ``cosas''
@@ -78,7 +153,7 @@ usemos habitualmente puede conectarse a una red, a internet. Haciendo
 que, en términos de redes, un dispositivo IoT se pueda equiparar a un
 ordenador convencional.
 
-\subsection{¿Qué es un dispositivo
+\subsubsection{¿Qué es un dispositivo
 IoT?}\label{quuxe9-es-un-dispositivo-iot}
 
 En el símil anterior hemos adelantado el concepto de dispositivo IoT sin
@@ -100,7 +175,7 @@ por ejemplo:
   Logística: Rastreo de envíos por correo o estado del stock en
   almacenes automatizando lectura de los items mediante wifi.
 \item
-  Transporte: Gestión automática de rutas por GPS; captura y procesado
+  Transporte: Gestión automática de rutas por GPS;\ captura y procesado
   de infracciones de velocidad.
 \item
   Salud: Desde una pulsera que capte tus hábitos de vida hasta
@@ -119,10 +194,10 @@ damos.
 \newpage
 
 \section{Revisión de enchufes inteligentes existentes en el
-mercado}\label{revisiuxf3n-de-enchufes-inteligentes-existentes-en-el-mercado}
+mercado}\label{revision-enchufes}
 
 \subsection{¿Qué es un enchufe? Tipos de
-enchufe}\label{quuxe9-es-un-enchufe-tipos-de-enchufe}
+enchufe}\label{tipos-de-enchufe}
 
 Un enchufe es una fuente de alimentación entre sistemas eléctricos. En
 este proyecto trataremos los enchufes dentro del ámbito doméstico o
@@ -139,14 +214,42 @@ usados en una región geográfica vienen determinados por un convenio
 fijado por el gobierno de esa zona.
 
 Por razones históricas\cite{nuevatribunaOrigenFrecuenciasElectricas}
-no existe una estandarización.
+no existe una estandarización. Generalmente las zonas que se han
+desarrollado con una mayor influencia entre los países que la
+conforman tienden a compartir el mismo tipo de enchufe, por ejemplo el
+más frecuentemente usado en la Unión Europea es distinto del usado en
+Reino Unido a pesar de compartir las propiedades de frecuencia y
+potencial eléctrico y situarse geográficamente más cercanos. Otras
+regiones más distantes como Japón o Estados Unidos de América usan
+enchufes con características distintas a ambas. Se ofrecen algunos
+ejemplos de las propidades de los enchufes por países en el
+Cuadro~\ref{table:enchufes-paises}.
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{lll}
+    \rowcolor[HTML]{DAE8FC} 
+    País      & Potencial  Eléctrico & Frecuencia \\
+    Indonesia & 110V, 220V           & 50Hz       \\
+    \rowcolor[HTML]{F8FF00} 
+    España    & 230V                 & 50Hz       \\
+    Reino Unido & 230V               & 50Hz       \\
+    México    & 127V                 & 60Hz       \\
+    E.E.U.U.  & 120V                 & 60Hz       \\
+    Japón     & 100V                 & 50Hz, 60Hz \\
+    Marruecos & 127V, 220V           & 50Hz      
+  \end{tabular}
+  \caption{Distintas zonas utilizan enchufes con distintas
+    características, a pesar de en algunos casos tener el mismo
+    potencial eléctrico y frecuencia}\label{table:enchufes-paises}
+\end{table}
 
 Trabajaremos con el tipo de enchufe usado en España, que cuenta con un
 potencial de 230V y una frecuencia de 50Hz\cite{IECWorldPlugs}.
 
 
 \subsection{¿Qué es un enchufe
-inteligente?}\label{quuxe9-es-un-enchufe-inteligente}
+inteligente?}\label{que-es-un-enchufe-inteligente}
 
 Un enchufe inteligente extiende esta definición de enchufe. Actuando
 como una interfaz que permite añadir un amplio abanico de
@@ -172,7 +275,7 @@ a anomalías como el consumo en horarios no esperados o picos de voltaje.
 Manejar tus dispositivos de manera remota, programar el horario de
 funcionamiento de estos o la manera en la que funcionan son solo algunas
 de las opciones; destacando la posibilidad de integración con otros
-dispositivos que proporcionen una mayor accesibilidad (p.ej. la interfaz
+dispositivos que proporcionen una mayor accesibilidad (p.ej.\ la interfaz
 de voz de un asistente de móvil).
 
 \subsection{Tipos de enchufes}\label{tipos-de-enchufes}
@@ -185,7 +288,7 @@ clasificación (no excluyente) de:
   Enchufes inteligentes (E.I.) por control remoto (wifi, bluetooth,
   infrarrojos u otros tipos de señales electromagnéticas).
 \item
-  E.I. programables, aquellos que permiten la progamación temporal de eventos.
+  E.I. programables, aquellos que permiten la programación temporal de eventos.
 \item
   E.I. de regletas, aquellos que permiten tratar con varios
   dispositivos simultáneamente en un mismo enchufe.
@@ -199,21 +302,46 @@ clasificación previa:
 
 \begin{itemize}
 \item
-  Programación temporal: Permiten la ejecución de tareas a horas
+  \textbf{Programación temporal:} Permiten la ejecución de tareas a horas
   concretas del día. Por ejemplo:
   \href{https://web.archive.org/web/20191111121153/https://www.amazon.es/Garza-Power-Temporizador-anal\%C3\%B3gico-programaci\%C3\%B3n/dp/B00URUVDW2/}{Garza
-  400603 (analógico)},
+  400603 (analógico)} (Figura~\ref{fig:enchufe-programable-analogico}),
   \href{https://web.archive.org/web/20191112121450/https://www.amazon.es/dp/B00ZJ1LQDK}{Orbegozo
-  PG 20 (digital)}
+    PG 20 (digital)} (Figura~\ref{fig:enchufe-programable-digital}).
 \item
-  Control remoto: Se pueden controlar con mando a distancia, a través de
+  \textbf{Control remoto:} Se pueden controlar con mando a distancia, a través de
   una app o con control por voz. Por ejemplo:
   \href{https://web.archive.org/web/20191112130933/https://www.amazon.es/dp/B06W586CDZ}{TP-Link
-  HS100} o la
+  HS100} (Figura~\ref{fig:enchufe-remoto}) o la
   \href{https://web.archive.org/web/20191116174434/https://www.amazon.es/dp/B07DJ2G1CW}{Regleta
-  Xiaomi}, que es un ejemplo de intersección entre E.I. de regleta y por
-  control remoto.
+  Xiaomi} (Figura~\ref{fig:enchufe-regleta}), que es un ejemplo
+  de intersección entre E.I. de regleta y por control remoto.
 \end{itemize}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\textwidth]{img/enchufe_programable_analogico.jpg}
+  \caption{Enchufe programable analógico Garza 400603. Imagen de~\cite{amazonwebsiteGarza400603Temporizador}}\label{fig:enchufe-programable-analogico}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.3\textwidth]{img/enchufe_programable_digital.jpg}
+  \caption{Enchufe programable digital Orbegozo PG20. Imagen de~\cite{amazonwebsiteOrbegozoPG202019}}\label{fig:enchufe-programable-digital}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.5\textwidth]{img/enchufe_remoto.jpg}
+  \caption{Enchufe por control remoto TP-Link HS100. Imagen de~\cite{amazonwebsiteTPLinkHS100Enchufe}}\label{fig:enchufe-remoto}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\textwidth]{img/enchufe_regleta.jpg}
+  \caption{Enchufe regleta por control remoto Xiaomi. Imagen
+    de~\cite{amazonwebsiteXiaomi18082Regleta2019}}\label{fig:enchufe-regleta}
+\end{figure}
 
 \newpage
 
@@ -227,7 +355,7 @@ definir y a trabajar mejor con los requisitos de estos nuevos sistemas.
 
 Existen diferentes arquitecturas en la actualidad, que difieren en el
 enfoque que le dan a ciertos campos. Dos de los más conocidos son IoT-A
-e IIRA. Siendo el primero el más extendido desde su lanzamiento en
+e IIRA.\ Siendo el primero el más extendido desde su lanzamiento en
 2012.\cite{weyrichReferenceArchitecturesInternet2016}
 
 Algunos campos de comparación entre arquitecturas de IoT son\cite{atzoriInternetThingsSurvey2010}:
@@ -312,8 +440,21 @@ interconexión.\cite{bicsiNetworkDesignBasics2002}
   sentido.}
 \item{Malla: Los dispositivos se conectan de muchos a muchos, puede
   ser completamente conectada o parcialmente conectada si todos los
-  nodos se encuentran conectados entre sí o no.}
+  nodos pueden o no encontrarse conectados entre sí. Esta categoría se
+  puede identificar con un grafo, y como tal incluye a la topología de
+  árbol, un tipo particular de grafo.}
+\item{Híbrida: Aquellas que combinan varias topologías básicas para
+  formar otras más complejas.}
 \end{itemize}
+
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{img/NetworkTopologies_esp.png}
+  \caption{Visualización de algunas topologías básicas de red}\label{fig:topologias-red}
+\end{figure}
+
+
 
 El modelo de interconexión de red de un sistema no es inherente al
 Internet de las Cosas, es una cuestión recurrente en cualquier diseño
@@ -327,23 +468,33 @@ dependiente de que el nodo central se encuentre siempre operativo.
 \newpage
 
 \section{Diseño de la arquitectura de nuestro
-sistema}\label{diseuxf1o-de-la-arquitectura-de-nuestro-sistema}
+sistema}\label{diseno-arquitectura}
 
-\subsection{Descripción general}\label{descripciuxf3n-general}
+\subsection{Descripción general}\label{descripcion-general}
 
 Nuestro enchufe inteligente recoge mediante el sensor SCT013 la
 corriente que requiere el dispositivo conectado. En el módulo ESP32 se
 realiza el cálculo del consumo en Vatios y se emite hacia nuestro
-servidor, una Raspberry Pi con Mosquitto y MQTT, de donde se podrá
-consultar desde una aplicación externa para supervisar el consumo y
-manipular el enchufe.
+servidor, una Raspberry Pi con Mosquitto haciendo uso del protocolo de
+comunicación MQTT, de donde se podrá consultar desde una aplicación
+externa para supervisar el consumo y manipular el enchufe.
 
-Como mencionábamos en la sección~\ref{arquitecturas-iot},
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{img/esquema_basico_sistema.png}
+  \caption{Representación simplificada del sistema y sus comunicaciones
+    principales.}\label{fig:esquema_basico}
+\end{figure}
+
+
+Como mencionábamos en la Sección~\ref{arquitecturas-iot},
 habitualmente las arquitecturas IoT se engloban bajo tres capas. La de
 percepción, nuestro sensor que recoge los datos; la capa de red, el
 uso de MQTT para gestionar las comunicaciones de manera liviana (sobre
 TCP/IP) y la capa de aplicación, que permite el procesamiento,
 manipulación y visualización por parte del usuario del sistema.
+
+\newpage
 
 \subsection{Modelo de red usado}\label{modelo-de-red-usado}
 
@@ -354,8 +505,17 @@ visualización y manejo sobre los enchufes a los usuarios. En los
 extremos se encontrarían tanto los enchufes inteligentes como los
 usuarios desde sus aplicaciones.
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{img/esquema_estrella.png}
+  \caption{Topología del sistema}\label{fig:esquema_estrella}
+\end{figure}
+
+
 Se ha decidido utilizar este modelo tanto por su versatilidad como
 simplicidad para conectar los nodos periféricos al servidor central.
+
+\newpage
 
 \subsection{Protocolo MQTT}\label{protocolo-mqtt}
 
@@ -377,6 +537,40 @@ mensajes de control correspondientes a una respuesta ACK a los
 anteriormente mencionados (pues está basado en
 TCP).\cite{banksMQTTVersionEdited}
 
+Todos los mensajes en MQTT se rigen bajo estas primitivas de
+control. Todos los paquetes que usan para comunicarse se denomina
+Paquete de control MQTT y tienen su propio formato como podemos
+apreciar en el Cuadro~\ref{table:cabecera-mqtt}.
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|}
+    \hline
+    Cabecera fija: Presente en todos los paquetes de control   \\ \hline
+    Cabecera variable: Presente en algunos paquetes de control \\ \hline
+    Carga: Presente en algunos paquetes de control             \\ \hline
+  \end{tabular}
+  \caption{Estructura general de un paquete de control MQTT}\label{table:cabecera-mqtt}
+\end{table}
+
+En la cabecera fija se indica el tipo de mensaje de control y se
+reservan algunos bits como indicadores, \textit{flags}, para indicar
+parámetros como el QoS (\textit{Quality of Service}, garantías en el
+modo de entrega del mensaje).
+
+En la cabecera variable se indican otros contenidos, por ejemplo un
+identificador de paquete cuando se establece un QoS que garantice la
+entrega del mensaje.
+
+En la sección correspondiente a la carga se transporta información que
+complementa al mensaje de control. En un mensaje SUBSCRIBE se incluye
+identificador, tema a suscribirse, usuario y contraseña si se
+requiere, mientras que en un paquete PUBLISH en nuestro sistema
+la carga sirve para que los enchufes inteligentes transmitan el
+consumo que han calculado.
+
+\newpage
+
 \subsection{Diseño broker, publishers,
 suscribers}\label{diseuxf1o-broker-publishers-suscribers}
 
@@ -395,7 +589,46 @@ suscriptores.\cite{al-fuqahaInternetThingsSurvey2015,hunkelerMQTTSPublishSubscri
 
 Por este motivo, en este patrón pueden existir múltiples publicadores
 y suscriptores mientras que es la entidad que actúa como broker la que
-gestiona el flujo de comunicación.
+gestiona el flujo de comunicación. Un ejemplo general sobre esta
+arquitectura basada en temas lo podemos encontrar en la
+Figura~\ref{fig:arquitectura_pub_sub}. En ella unos sensores dotados
+de conectividad, como nuestros enchufes inteligentes, se encargan de
+publicar en unos temas una información determinada. Unos clientes
+interesados se suscriben a los temas que sean de su interés para su
+posterior uso.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{img/arquitectura_pub_sub_ejemplo.png}
+  \caption{Ejemplo genérico del uso de un broker.}\label{fig:arquitectura_pub_sub}
+\end{figure}
+
+La arquitectura que hemos diseñado en nuestro sistema sigue el mismo
+patrón, pero se adapta al uso de diversos temas, tanto de consumo como
+de control. En la Figura~\ref{fig:arquitectura_broker_sistema} podemos
+ver cómo los enchufes inteligentes se encargan tanto de enviar como de
+recibir información del broker. Publican la información relativa al
+consumo de los dispositivos conectados en los temas de consumo y se
+suscriben a los temas de control para que los usuarios finales puedan
+manipular el estado de los enchufes.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{img/arquitectura_broker_sistema.png}
+  \caption{Comunicaciones MQTT en nuestro sistema.}\label{fig:arquitectura_broker_sistema}
+\end{figure}
+
+Es destacable de la Figura~\ref{fig:arquitectura_broker_sistema} que
+sólo existe un suscriptor MQTT a los canales de consumo, el propio
+servidor central. Esto sucede para que exista una única base de datos
+centralizada y evitar problemas de inconsistencia en caso de que algún
+cliente se caiga y se encuentren bases de datos con estados
+distintos. La consulta de información relativa al consumo por parte
+del usuario final se produce vía HTTP y se explicará con mayor
+detenimiento en la Sección~\ref{subsubsec:consulta-api}.
+
+
+\newpage
 
 \subsubsection{Mosquitto}\label{subsubsec:broker_mosquitto}
 
@@ -454,6 +687,9 @@ El enchufe está compuesto por cuatro elementos principales:
   resto del circuito.}
 \end{itemize}
 
+\textit{\textless Aquí se puede insertar algún esquema del enchufe por
+  dentro, señalando con colores cada elemento de estos \textgreater}
+
 \subsubsection{Diseño y construcción del enchufe}
 
 En un proceso de prueba y selección de componentes descartamos otras
@@ -464,10 +700,17 @@ externos requería alimentación extra. El ESP32 usado sí que disponía
 de WiFi y era compatible con el resto de componentes, reduciendo así
 la complejidad de este subsistema mientras otorgaba la misma funcionalidad.
 
+\textit{\textless Insertar alguna imagen de Arduino UNO y ESP32, tal
+  vez alguna comparativa \textgreater}
+
 El sensor de corriente no invasivo fue seleccionado tras descartar el
 sensor ACS712\cite{ACS712DatasheetPDF}. Este introducía ruido en las
 lecturas, mostrando diferencias entre el consumo esperado y el
 registrado para componentes eléctricas que conciéramos de antemano.
+
+\textit{\textless Si encuentro una foto de las lecturas con ruido la
+  puedo introducir. También puedo introducir imágenes del sensor
+  ASC712, del SCT013 y explicar un poquito sus funcionamientos \textgreater}
 
 Tras esta selección procedimos a probar y, posteriormente, soldar el
 enchufe a una placa base. A fin de minimizar el número de cruces entre
@@ -572,7 +815,7 @@ extenderse a configuración de otros parámetros).
 
 A fin de procesar la información del consumo cada enchufe está
 identificado unívocamente por un identificador que puede ser adaptado
-\textit{ad-hoc} (se podrían utilizar otros idendificadores como el del propio
+\textit{ad-hoc} (se podrían utilizar otros identificadores como el del propio
 microcontrolador, pero se deja a opción del usuario para permitir
 flexibilidad en la nomenclatura).
 
@@ -610,9 +853,22 @@ entre los publicadores y suscriptores de MQTT, como mencionábamos
 en~\ref{subsubsec:broker_mosquitto}, haciendo uso de Mosquitto para
 gestionar las publicaciones y suscripciones a los temas.
 
+\textit{\textless Aquí se puede explicar más cosas sobre mosquitto que
+  no vengan en la sección que se referencia\textgreater}
+
 Es necesario que el broker esté activo y sea persistente a reinicios y
 caídas. Por esto hay que configurarlo para que Mosquitto se lance en
 cada inicio del servidor.
+
+Este problema se puede abordar en un sistema Linux (y en particular en
+Raspbian, el Sistema Operativo que estamos usando) de diversas
+maneras. Una opción es usar el archivo \texttt{/etc/rc.local} para
+ejecutar una orden en un script. Esta opción es similar al uso de un
+\textit{cronjob} definido en cada inicio. También existe la
+posibilidad de definir un servicio y activarlo al inicio con
+\textit{systemd} (\textit{daemons}, procesos en segundo plano, del
+sistema que se ejecutan al inicio). Cualquiera de estos métodos
+resulta válido para esta finalidad.
 
 Este servidor supone el nodo central de nuestra topología de red, es
 por tanto el más determinante para el correcto funcionamiento del
@@ -634,16 +890,64 @@ nuestra red y hemos solicitado un nombre de dominio que actualiza la
 IP pública del router de acceso al servidor, configurando además un
 reenvío de puertos para que un cliente pueda conectarse desde el exterior.
 
+\textit{\textless Aquí se puede hacer un esquemita sobre cómo se
+  pueden comunicar nodos periféricos con el servidor, ya sea en red
+  local o externa, explicar reenvío de puertos para externos a la red,
+  dónde se aloja y cómo se accede a la API o al control de los
+  enchufes \textgreater}
+
 \subsubsection{Gestión de la base de datos}
 
-En el servidor central se encuentra situada una base de datos donde se
-recogen las lecturas de los enchufes. De este modo se puede gestionar
-la difusión de esta información a los clientes sin comprometer la
-consistencia de los datos.
+En un primer diseño ubicamos la base de datos en los propios usuarios
+finales, de modo que libraríamos al servidor central de mayor carga de
+gestión y limitaríamos las comunicaciones en la red a publicaciones y
+suscripciones de MQTT. Esta idea fue descartada finalmente pues
+resulta más valioso tener una base de datos sin inconsistencias entre
+los distintos almacenamientos de los clientes que un servidor menos
+congestionado.
+
+En el diseño final, en el servidor central se encuentra situada una
+base de datos donde se recogen las lecturas de los enchufes. De este
+modo se puede gestionar la difusión de esta información a los clientes
+sin comprometer la consistencia de los datos.
 
 La estructura de esta base de datos consiste en una tabla que
 incorpora para cada medición una fila con los datos del enchufe en el
-que se ha leído, el consumo y la hora registrada según el servidor.
+que se ha leído, el consumo y la hora registrada según el servidor. La
+creación de esta base de datos se gestiona con un programa que crea
+una base de datos con este esquema si no existía previamente. El
+Sistema Gestor de Bases de Datos usado ha sido
+sqlite\cite{SQLiteHomePage} por su capacidad para implementar una base
+de datos relacional SQL sencilla y rápida.
+
+La manera en la que se pobla esta base de datos es mediante un
+programa que se ejecuta de manera concurrente al broker y que se
+comporta como un suscriptor más al tema de las publicaciones de
+consumo. Pero su procesamiento del mensaje implica su almacenamiento
+en la base de datos.
+
+\subsubsection{Consulta a la base de datos}\label{subsubsec:consulta-api}
+
+Una vez que la información del consumo energético de nuestros enchufes
+se encuentra almacenada en una base de datos en nuestro servidor
+central es necesario implementar algún medio de comunicación entre el
+servidor y el usuario final para que puedan acceder a esta
+información.
+
+La solución que le hemos dado a este requisito es la creación de una
+API simple, un microservicio. Una interfaz que sirva a un usuario para
+consultar la información relativa a un enchufe. Todas las peticiones
+que se pueden hacer a esta API son exclusivamente de consulta
+(peticiones HTTP tipo GET), por lo que no existe el riesgo de que
+múltiples escritores generen problemas derivados de un acceso
+concurrente.
+
+Esta API está optimizada para realizar las consultas a la base de
+datos de modo que se adecúen a los procesos en otros módulos para
+evitar un postprocesado innecesario en etapas posteriores. Ofreciendo
+los datos relativos a uno o varios enchufes y a un rango determinado
+de lecturas en un formato específico que sea más directamente
+interpretable por las aplicaciones que se comuniquen con la API.
 
 \newpage
 
@@ -665,6 +969,10 @@ estos permiten una mayor flexibilidad y libertad de configuración. Por
 esto se le permite al cliente modificar desde la aplicación los
 parámetros de conexión.
 
+\textit{\textless Aquí se puede adjuntar una imagen de nuestra
+  topología de estrella y que salgan coloreados o señalados los nodos
+  finales de los clientes \textgreater}
+
 Una vez conectado al servidor la aplicación puede obtener la
 información del mismo. Consultar su base de datos para obtener el
 consumo realizado y poder visualizarlo de manera sencilla o consultar
@@ -676,16 +984,20 @@ permitirá controlar el estado de los enchufes (modificando el estado
 de su relé) publicando en el broker en los temas de control a los que
 los enchufes estarán suscritos.
 
+\textit{\textless Se pueden añadir aquí imágenes de la interfaz de
+  usuario y referenciarlas al comentar las funcionalidades en los
+  párrafos anteriores \textgreater}
+
 \newpage
 
-\section{Pruebas y test}
+\section{Pruebas y test}\label{tests}
 
 \textit{Aquí se adjuntarán algunas imágenes y resultados de los tests
   que se realicen sobre distintas partes del sistema}
 
 \newpage
 
-\section{Conclusión}
+\section{Conclusión}\label{conclusion}
 
 Ya sabíamos que el Internet de las Cosas traía consigo innumerables
 posibilidades para extender la concepción habitual de los objetos que
@@ -699,6 +1011,40 @@ como para su desarrollo. Apto para cualquiera sin requerir grandes
 gastos económicos y con unas opciones de diseño y desarrollo que
 existen y que cada vez están mejor documentadas.
 
+Entre los retos que se han planteado en este trabajo se encuentran
+trabajar con fundamentos de la física, comprender las utilidades de
+muchas componentes electrónicas que hemos acabado usando en nuestro
+diseño y que no son la materia de estudio usual que se puede encontrar
+un Ingeniero Informático en su trabajo pero que, sin embargo, debemos
+ser capaces de trabajar con ellos si la ocasión lo requiere. Lo cual
+nos enseña que la informática, y en particular en el ámbito del IoT,
+es un área que intersecta con muchas otras ramas del conocimiento como
+la física, la bioinformática o la medicina entre muchas otras. Y esto
+implica que debemos ser capaces de adaptar nuestros conocimientos para
+extenderlos a cualquier problema que se nos presente.
+
+Otro de los retos que se han presentado y que es destacable es, en sí
+mismo, el diseño de un sistema tan grande. En muchas ocasiones nos
+especializamos en aprender a trabajar en campos muy concretos de la
+informática, inteligencia artificial, desarrollo de software, sistemas
+de información, etc. Pero para hacer proyectos reales por cuenta
+propia es necesario abarcar áreas que se escapan de la especialidad de
+cada uno. Ese ha sido uno de los motivos que me impulsó a hacer este
+trabajo, enfrentarme a una placa base sobre la que diseñar un circuito
+y soldar un microcontrolador, planificar unas bases de datos,
+gestionar la comunicación y elaborar la interfaz de un usuario
+final. En resumen, llevar un diseño de principio a fin, contemplando
+todas las posibilidades de diseño a la par que se investiga sobre
+aquellas que se desconocen.
+
+Considero este proyecto como una oportunidad de aprender y de
+desarrollo personal como Ingeniero Informático, pero también espero
+que sirva de utilidad a quien quiera monitorizar el consumo en su
+hogar pero no enfrentarse a todo el proceso de diseño y sobre todo de
+inspiración a quien quiera desarrollar un proyecto \textit{maker},
+autónomo y al alcance de su mano, para demostrar que simplemente con
+la voluntad por aprender y un trabajo de investigación se puede llegar
+a conseguir lo que se proponga.
 
 \newpage
 
