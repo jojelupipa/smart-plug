@@ -15,7 +15,7 @@ base de datos
 """
 db_dir = "../db/"
 db_power_name = db_dir + "power_consumption.db"
-
+MAX_CONN_ATTEMPTS = 5
 
 VERBOSE = False
 keep_alive_interval = 100
@@ -86,6 +86,7 @@ class Subscriber():
         VERBOSE = verbose
         self.mqttc = mqtt.Client()
         connected = False
+        attempts = 0
         while not connected:
             try:
                 set_up_connection(self.mqttc, settings["user"],
@@ -94,9 +95,13 @@ class Subscriber():
                                   settings["port"])
                 connected = True
             except ConnectionRefusedError as e:
-                print(e)
-                print("Broker not ready yet.")
+                if VERBOSE:
+                    print(e)
+                    print("Broker not ready yet.")
                 time.sleep(5)
+                attempts += 1
+                if attempts < MAX_CONN_ATTEMPTS:
+                    raise ConnectionRefusedError
 
     def subscribe(self):
         """ Se suscribe al tema hasta que reciba un mensaje de desconexión """
