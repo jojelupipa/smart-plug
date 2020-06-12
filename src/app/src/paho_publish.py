@@ -4,6 +4,7 @@
 
 """ Script para publicar mensajes en un topic a un broker """
 
+import sys
 import paho.mqtt.client as mqtt
 import optparse
 
@@ -48,8 +49,14 @@ def set_up_connection(mqttc, user, password, broker_ip, port):
     mqttc.on_connect = on_connect
     mqttc.on_disconnect = on_disconnect
     mqttc.on_publish = on_publish
-    mqttc.connect(broker_ip, int(port), int(Keep_Alive_Interval))
-
+    try:
+        mqttc.connect(broker_ip, int(port), int(Keep_Alive_Interval))
+    except OSError as e:
+        if VERBOSE:
+            print(e)
+            print("Unable to connect. Check server status")
+        return 1
+    return 0
 
 # Function for publishing to a topic
 
@@ -88,7 +95,8 @@ if __name__ == "__main__":
     set_parser_options(parser)
     options, args = parser.parse_args()
     mqttc = mqtt.Client()
-    set_up_connection(mqttc, options.user, options.password,
-                      options.broker_ip, options.port)
+    result = set_up_connection(mqttc, options.user, options.password,
+                               options.broker_ip, options.port)
     publish_to_topic(mqttc, options.topic, options.message)
     mqttc.disconnect(mqttc)
+    sys.exit(result)

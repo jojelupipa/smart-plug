@@ -9,7 +9,7 @@ import subprocess
 import app_utils
 import SettingsWindows
 import PlugListWindow
-from PySide2 import QtWidgets
+from PySide2 import QtWidgets, QtCore
 
 
 ''' Main Window '''
@@ -75,6 +75,7 @@ class HomeWindow(QtWidgets.QMainWindow):
 
 
 if __name__ == "__main__":
+    QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_ShareOpenGLContexts)
     app = QtWidgets.QApplication(sys.argv)
     home_window = HomeWindow()
     home_window.show()

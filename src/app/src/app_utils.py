@@ -17,6 +17,7 @@ from PySide2.QtUiTools import QUiLoader
 UI_PATH = "../ui/"
 SETTINGS_PATH = "../db/settings.db"
 CONSUMPTION_PATH = "../db/power_consumption.db"
+VERBOSE = False
 
 
 ''' Main functions'''
@@ -64,7 +65,12 @@ def getFromDB(name="general", last=False):
     settings = get_settings()
     url = "http://" + settings["broker_ip"] + ":8080/consumption"
     params = {"name": name, "last": last}
-    result = requests.get(url=url, params=params).json()
+    try:
+        result = requests.get(url=url, params=params).json()
+    except requests.exceptions.ConnectionError:
+        if VERBOSE:
+            print("API unreachable")
+        result = ""
     return result
 
 
@@ -75,7 +81,12 @@ def get_date_power(name="general"):
     settings = get_settings()
     url = "http://" + settings["broker_ip"] + ":8080/date_power"
     params = {"name": name}
-    result = requests.get(url=url, params=params).json()
+    try:
+        result = requests.get(url=url, params=params).json()
+    except requests.exceptions.ConnectionError:
+        if VERBOSE:
+            print("API unreachable")
+        result = []
     formated_result = []
     for row in result:
         formated_result.append([parser.parse(row[0]), float(row[1])])
@@ -86,7 +97,12 @@ def get_plug_list():
     """ Devuelve la lista de enchufes conocidos en la base de datos """
     settings = get_settings()
     url = "http://" + settings["broker_ip"] + ":8080/plugs"
-    list = requests.get(url).json()
+    try:
+        list = requests.get(url).json()
+    except requests.exceptions.ConnectionError:
+        if VERBOSE:
+            print("API unreachable")
+        list = []
     return list
 
 

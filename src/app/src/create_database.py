@@ -67,12 +67,16 @@ def create_settings_database(force=False):
     connection.close()
 
 
+def check_dir():
+    if not os.path.isdir(db_dir):
+        os.makedirs(db_dir)
+
+
 if __name__ == "__main__":
     parser = optparse.OptionParser()
     set_parser_options(parser)
     options, args = parser.parse_args()
-    if not os.path.isdir(db_dir):
-        os.makedirs(db_dir)
+    check_dir()
     if options.force:
         create_settings_database(force=True)
     else:
