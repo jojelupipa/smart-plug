@@ -23,6 +23,9 @@
 
 \usepackage{amsmath}
 
+% Incluir apéndices
+\usepackage[toc,page]{appendix}
+
 % Incluir gráficos
 \usepackage{graphicx}
 \usepackage{subcaption}
@@ -1376,9 +1379,99 @@ a conseguir lo que se proponga.
 
 \newpage
 
+\appendix
+\section{Anexo: Código del proyecto}
+
+Todo el código del proyecto puede ser consultado en este repositorio de Github:
+
+\href{https://github.com/jojelupipa/smart-plug}{https://github.com/jojelupipa/smart-plug}
+
+El repositorio se ha estructurado de manera que se pueda consultar
+fácilmente cada sección de este trabajo (accesible a continuación mediante hiperenlace):
+
+\begin{itemize}
+\item{\href{https://github.com/jojelupipa/smart-plug/tree/master/src}{\textbf{Código fuente:}}}
+  \subitem{\href{https://github.com/jojelupipa/smart-plug/blob/master/src/esp32_module/esp32_module.ino}{Enchufe inteligente}}
+  \subitem{\href{https://github.com/jojelupipa/smart-plug/tree/master/src/server}{Servidor central}}
+  \subsubitem{\href{https://github.com/jojelupipa/smart-plug/blob/master/src/server/requirements.txt}{Dependencias (Python) del servidor}}
+  \subsubitem{\href{https://github.com/jojelupipa/smart-plug/blob/master/src/server/script_provisionammiento.sh}{Provisionamiento del servidor}}
+  \subsubitem{\href{https://github.com/jojelupipa/smart-plug/blob/master/src/server/mosquitto.conf}{Configuración Mosquitto}}
+  \subitem{\href{https://github.com/jojelupipa/smart-plug/tree/master/src/app}{Aplicación de escritorio}}
+  \subsubitem{\href{https://github.com/jojelupipa/smart-plug/blob/master/src/app/requirements.txt}{Dependencias de la app}}
+\item{\href{https://github.com/jojelupipa/smart-plug/tree/master/documentacion}{\textbf{Documentación:}}}
+  \subitem{\href{https://github.com/jojelupipa/smart-plug/tree/master/documentacion}{Memoria del proyecto}}
+  \subitem{\href{https://github.com/jojelupipa/smart-plug/blob/master/documentacion/biblio.bib}{Bibliografía del proyecto}}
+\end{itemize}
+
+\newpage
+
+\section{Anexo: Cómo usar este proyecto}
+
+En el \href{https://github.com/jojelupipa/smart-plug}{repositorio del
+  proyecto} se recogen instrucciones de uso de cada una de las partes
+del sistema. En esta sección se busca proporcionar unas pautas para
+que el usuario pueda sacarle el máximo partido al sistema.
+
+Dada la modularidad de este proyecto puede usarse en su
+conjunto o simplemente las partes que se necesiten, modificando el
+resto o sustituyéndolas por otras partes que resulten más
+convenientes.
+
+Además, dada la licencia permisiva de este proyecto, se deja la
+libertad al usuario de modificar el diseño del sistema para que se
+adecue a sus necesidades.
+
+Para este fin se adjuntan algunas indicaciones con los aspectos más
+relevantes a tener en cuenta si se desea integrar el sistema con otros
+elementos.
+
+\subsection{Enchufe Inteligente}
+
+Usar el enchufe diseñado en este proyecto es, simplemente, una
+simplificación del trabajo. Es posible que no se dispongan de los
+materiales necesarios para construir este mismo enchufe, que se
+tuviera previamente otro enchufe o que se prefiera usar algún otro
+tipo de comunicador.
+
+Cualquier sensor, enchufe o interfaz que actúe como transmisor debe
+hacer uso de un cliente MQTT que publique en el tema (\textit{topic})
+indicado.
+
+\texttt{/data/consumption/*nombre\_enchufe*}
+
+\textit{Sustitúyase *nombre\_enchufe* por el identificador de la
+  interfaz a conectar}
+
+Del mismo modo, si se desea dotar de una funcionalidad de control
+sobre el enchufe este deberá contener algún tipo de relé o interruptor
+que se controle mediante una suscripción al tema de control:
+
+\texttt{/control/toggle/*nombre\_enchufe*}
+
+\subsection{Servidor central}
+
+Tampoco es necesario utilizar Mosquitto, mientras las credenciales
+utilizadas por los nodos finales (enchufes y clientes finales) sean
+las apropiadas para la comunicación el broker utilizado no será un
+problema para el correcto flujo de la información.
+
+\subsection{Cliente de escritorio}
+
+El cliente de escritorio puede ser adaptado también a las necesidades
+del usuario, la obtención de información se hace mediante un conjunto
+de consultas a la API del servidor central. Por lo que todas las
+vistas pueden ser modificadas como se desee.
+
+La manipulación de los enchufes se realiza mediante publicaciones MQTT
+al tema correspondiente en el broker:
+
+\texttt{/control/toggle/*nombre\_enchufe*}
+
+\newpage
+
 \bibliographystyle{unsrt}
 \begingroup
-\raggedright
+\raggedright%
 
 \bibliography{biblio} 
 \endgroup
