@@ -31,6 +31,9 @@
 \usepackage{subcaption}
 \usepackage{float}
 
+% Incluir símbolos especiales (como euro)
+\usepackage{lmodern,textcomp}
+
 % Incluir código
 \usepackage{listings}
 
@@ -1468,6 +1471,84 @@ al tema correspondiente en el broker:
 \texttt{/control/toggle/*nombre\_enchufe*}
 
 \newpage
+
+\section{Anexo: Planificación y Presupuesto}
+
+\subsection{Planificación del proyecto}
+
+En la siguiente imagen podemos encontrar un diagrama de Gantt, una
+representación visual que refleja de manera sencilla la distribución
+del tiempo empleado a cada sección de este proyecto.
+
+\begin{figure}[H]
+  \centering
+  \hspace*{-3cm}
+  \includegraphics[scale=0.4]{img/plan_tfg_gantt.png}
+  \caption{Diagrama de Gantt de la planificación del proyecto}\label{fig:gantt}
+\end{figure}
+
+El proyecto ha seguido dos líneas principales de desarrollo, por un
+lado la parte de la construcción del sistema en sí mismo, mostrado en
+el diagrama mediante los colores azul oscuro (hardware), verde
+(servidor central) y rosa (app de escritorio), que ha seguido un
+desarrollo más lineal: Cuando se han obtenido el medio de proporcionar
+los datos se ha pasado al medio donde se almacenan y por último a la
+herramienta de consulta.
+
+La otra línea ha sido la documentación (en el diagrama, azul celeste)
+que ha sido anterior, posterior e incluso paralela a la línea de
+construcción. Anterior para informarse del funcionamiento de la etapa
+a desarrollar, posterior para documentar el resultado final y paralelo
+para poder mantener de manera sólida un registro sobre lo elaborado y
+aprender e indagar acerca de los problemas que han ido surgiendo.
+
+\newpage
+
+\subsection{Presupuesto del proyecto}
+
+Uno de los objetivos de este proyecto era demostrar la accesibilidad
+económica al Internet de las Cosas a cualquier usuario. En nuestro
+caso, obviando los costes humanos por las horas dedicadas al diseño y
+construcción, recogeremos a continuación los gastos materiales que
+puede acarrear la replicación del proyecto.
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{ll}
+    Item                      & Precio \\ \hline
+    Raspberry Pi Model 3B     & 30€    \\ \hline
+    Módulo ESP32              & 10€    \\ \hline
+    Sensor SCT013             & 3.50€  \\ \hline
+    Relé Tongling jqc-3ff-s-z & 0.30€  \\ \hline
+    PCB Base                  & 0.40€  \\ \hline
+    Conversor AC/DC 5V        & 5€     \\ \hline
+    Cables conexiones         & 5€     \\ \hline
+    Cables alargador          & 3€     \\ \hline
+    Empalmes eléctricos       & 0.40€  \\ \hline
+    \hspace{10cm}             &        \\ \hline
+    \textbf{TOTAL}            & \textbf{57.60€}
+  \end{tabular}
+\end{table}
+
+\textit{Téngase en cuenta que los precios aquí mostrados son una mera
+  estimación de acuerdo al precio que se ha podido encontrar durante
+  la realización de este proyecto. El precio real puede variar en
+  función del tiempo}
+
+El precio final del material del proyecto se estima en 57.60€. Este
+precio se espera que sea una aproximación de la cota superior. No es
+un presupuesto extremadamente preciso pues muchos de los componentes
+(cables, empalmes, etc.) suelen venderse en lotes y no se utilizarán
+realmente todos los elementos. Los mismos pueden ser aprovechados para
+futuros proyectos.
+
+Del mismo modo muchos de los artículos usados son de uso común en
+proyectos de electrónica e informática y disponer de, por ejemplo
+PCBs, una Raspberry Pi o incluso el módulo ESP32 puede suponer una
+rebaja sustancial del precio.
+
+\newpage
+
 
 \bibliographystyle{unsrt}
 \begingroup
