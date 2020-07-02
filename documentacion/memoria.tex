@@ -68,17 +68,178 @@
 \setlength{\parindent}{1.5em}
 
 % Portada
-\title{Diseño y construcción de un sistema para adquisición y análisis
+\newcommand{\inserttitle}{Diseño y construcción de un sistema para adquisición y análisis
   del consumo energético en el hogar}
-\author{Jesús Sánchez de Lechina Tejada}
-\date{Junio 2020}
+\newcommand{\insertauthor}{Jesús Sánchez de Lechina Tejada}
+\newcommand{\insertdate}{Junio 2020}
 
 \begin{document}
-\maketitle
-\thispagestyle{empty}
+\begin{titlepage}
 \begin{center}
   \includegraphics[scale=0.4]{img/logo_ugr.pdf}
 \end{center}
+
+\begin{center}
+  \Large TRABAJO FIN DE GRADO\\ 
+  \large Grado en Ingeniería Informática
+  \vspace{0.7cm}
+
+  \hrule
+  \textbf{\LARGE \inserttitle}
+  \vspace{0.2cm}
+  \hrule
+  \vspace{2cm}
+  
+  \textbf{Autor}
+
+  \insertauthor
+
+  \textbf{Director}
+
+  Manuel Pegalajar Cuéllar
+
+  \textit{Departamento de Ciencias de la Computación e Inteligencia Artificial}
+
+  \vspace{2cm}
+  \includegraphics{img/etsiit_logo.png}
+  
+  Escuela Técnica Superior de Ingenierías Informática y de Telecomunicación
+
+  \textsc{---}
+
+  \insertdate
+\end{center}
+
+\newpage
+
+\ 
+\thispagestyle{empty}
+
+\newpage
+
+\begin{center}
+\textbf{\inserttitle}
+
+
+Jesús Sánchez de Lechina Tejada
+\end{center}
+
+\textbf{Palabras clave:} Internet de las Cosas, consumo energético, MQTT, enchufe inteligente.
+
+\textbf{Resumen}
+
+El Internet de las Cosas es un concepto que cada vez está más presente
+en nuestras vidas, y no solo en el ámbito de la informática. Cada día
+se escucha más acerca de la \emph{cuarta revolución industrial}, la
+conectividad de los elementos de nuestra vida cotidiana. Incluso
+nuestros frigoríficos empiezan a hacer la lista de la compra por sí
+mismos.
+
+Este trabajo aborda este tema y nos lo presenta de manera que
+conozcamos el Internet de las Cosas y veamos que no es un elemento que
+usan los conglomerados de empresas y esté fuera de nuestro
+alcance. Todo lo contrario, cualquiera con unos conocimientos básicos
+y con un presupuesto ajustado puede ser parte de esta nueva ola.
+
+¿Cómo? Aquí explicamos un diseño y el proceso de construcción de un
+\textbf{enchufe inteligente}, un enchufe normal y corriente con el que
+puedes medir el consumo energético y controlarlo remotamente. Se
+incluye el diseño electrónico, el modelo de red y conectividad y la
+programación tanto del microcontrolador usado en el enchufe y el
+código usado en el servidor como la aplicación para gestionar el
+enchufe.
+
+En primer lugar se presenta una introducción a este concepto: Internet
+de las Cosas. Con una descripción de sus características, usos y se
+explica su funcionamiento a un nivel de detalle suficiente para
+alcanzar a comprender el diseño del sistema. A su vez se presentan
+algunas alternativas en el mercado que implementan este concepto del
+enchufe inteligente.
+
+A continuación podemos encontrar el diseño por partes del sistema y su
+proceso de construcción: Enchufe, servidor y aplicación de usuario
+final. Acompañándolo de las pruebas realizadas, algunas conclusiones
+sobre el tema y unas indicaciones sobre dónde encontrar el código de
+este proyecto, cómo usarlo y estimaciones de presupuesto para la
+realización de este proyecto.
+
+En definitiva este trabajo representa un acercamiento a este
+paradigma, mostrando que, si bien puede dar lugar a sistemas
+complejos, un primer acercamiento está al alcance de nuestra mano.
+
+\thispagestyle{empty}
+
+\newpage
+
+\ 
+\thispagestyle{empty}
+
+\newpage
+
+\begin{center}
+\textbf{Designing and building a system for domestic power consumption
+  data extraction and analysis}
+
+
+Jesús Sánchez de Lechina Tejada
+\end{center}
+
+\textbf{Keywords:} Internet of Things, power consumption, MQTT, smart
+plug.
+
+\textbf{Abstract}
+
+Internet of Things it's a term which is growing day after day, not
+only in computer environments. Everyday, we hear more about the
+\emph{fourth industrial revolution}, the connectivity of things in our
+regular life. Even fridges have started ordering food on their own
+when we are missing something.
+
+This projects gets to this topic and introduces us to the Internet of
+Things so that we see that it is not a technology exclusively owned by
+corporations, beyond our powers. Right the opposite, anyone with basic
+knowledge and small budget can be part of this trend.
+
+How? Here we describe the design and the building process of a
+\textbf{smart plug}, a regular plug which can measure power
+consumption and manage it remotely. It includes the electronic design,
+network topology and connectivity as well as the programming for all
+the plug micro-controller, the server and the app to manage the plug.
+
+First, we introduce this term: Internet of Things. Describing its
+characteristics, use cases and we detail how it works enough to get to
+understand the system design. At the same time, currently sold
+options in the market that implement this smart plug concept.
+
+Next, we can find the actual design and how to build every part step
+by step: Plug, server and user app, along with tests of each section,
+and some instructions on where to find the code for this system, how
+to use it and a budget estimation for the whole project.
+
+Summing up, this project aims to be an approach to this
+paradigm. Showing us that, despite of being able to create complex
+architectures, a first approach to it is within everyone's reach
+
+\thispagestyle{empty}
+
+\newpage
+
+
+\LARGE  \textbf{Agradecimientos}
+
+\vspace{2cm}
+
+\large
+A mi tutor, Manuel, por enseñarme a soldar y guiarme en este trabajo.
+
+\vspace{1cm}
+A mis amigos, por ayudarme con herramientas de bibliografía y a
+mejorar la calidad de mi documentación. Así como también por ofrecerme
+apoyo moral.
+
+\thispagestyle{empty}
+
+\end{titlepage}
 
 \newpage
 
@@ -711,7 +872,7 @@ En su estructura también guardan metainformación relativa al propio
 broker: bytes enviados y recibidos, clientes conectados o mensajes
 pendientes entre otros.
 
-Otra utilidad de mosquitto es la capacidad de establecer
+Otra utilidad de Mosquitto es la capacidad de establecer
 \textit{puentes}. Múltiples brokers pueden estar conectados con esta
 funcionalidad. Esto es útil cuando se desea compartir información
 entre distintas localizaciones pero no toda la información ha de ser
